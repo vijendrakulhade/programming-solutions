@@ -126,7 +126,17 @@ public class DynamicProgrammingTest {
 
     @Test
     public void testSuper_reduced_string(){
-        Assert.assertSame("abd",dynamicProgramming.super_reduced_string("aaabccddd",0));
+        Assert.assertSame("abcd",dynamicProgramming.super_reduced_string("aaabccddd").intern());
+    }
+
+    @Test
+    public void  testIsPatternMatch(){
+        Assert.assertTrue(dynamicProgramming.isPatternMatch("aaa","a*"));
+    }
+
+    @Test
+    public void  testIsPatternMatch_Neg(){
+        Assert.assertFalse(dynamicProgramming.isPatternMatch("aaa","."));
     }
 
 }

@@ -7,6 +7,42 @@ import java.util.*;
  */
 public class DynamicProgramming {
 
+
+    public boolean isPatternMatch(String s,String p){
+        //base case
+        if(p.length()==0) return s.length()==0;
+        //case 0 if pattern is only one char '.' or '*'
+        if(p.length()==1){
+            if(s.charAt(0)!=p.charAt(0) && p.charAt(0)!='.'){
+                return false;
+            }else{
+                return isPatternMatch(s.substring(1),p.substring(1));
+            }
+        }
+        //case 1 if pattern second char is not '*'
+        if(p.charAt(1)!='*'){
+            if(s.charAt(0)!=p.charAt(0) && p.charAt(0)!='.'){
+                return false;
+            }else{
+                return isPatternMatch(s.substring(1),p.substring(1));
+            }
+        }else{// 2 if pattern second char is *
+            //case 2.1: a char & '*' can stand for 0 element OR
+            if(isPatternMatch(s,p.substring(2))){
+                return true;
+            }
+            //case 2.2: a char & '*' can stand for 1 or more preceding element
+                int i=0;
+            while(i<s.length() && s.charAt(0)==p.charAt(0) || p.charAt(0)=='.'){
+                  if(isPatternMatch(s.substring(i+1),p.substring(2))){
+                      return true;
+                  }
+                  i++;
+            }
+            return false;
+        }
+
+    }
     /**
      * Method will print fibonacci Series with recursion
      * @param n
@@ -231,16 +267,22 @@ public class DynamicProgramming {
     /**
      * Method will remove consecutive duplicates from String
      */
-    public String super_reduced_string(String s,int index){
-        if("".equalsIgnoreCase(s)){
-            return "Empty String";
-        }else if(s.charAt(index)==s.charAt(index+1)){
-            return s.substring(index+1)+super_reduced_string(s.substring(index+2,s.length()),index+1);
-        }else{
-            return super_reduced_string(s,index+1);
+    public String super_reduced_string(String s){
+        if(s ==null) throw new IllegalArgumentException("Null String");
+        if(s.length()<=1) return s;
+        Set<Character> characters = new HashSet<>();
+        StringBuilder sb = new StringBuilder();
+        for(Character c:s.toCharArray()){
+            if(characters.contains(c)){
+                continue;
+            }
+            characters.add(c);
+            sb.append(c);
         }
-
+        return sb.toString();
     }
+
+
 
     /**
      * Method will form permutations of a given string

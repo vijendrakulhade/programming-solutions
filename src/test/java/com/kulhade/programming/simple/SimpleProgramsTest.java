@@ -62,7 +62,7 @@ public class SimpleProgramsTest {
 
     @Test
     public void testSortWithLastNameAppearance() throws IOException{
-        File inputFile = new File("/Users/vn05f93/Demo/programmingquestions/src/test/resources/name.txt");
+        File inputFile = new File("src/test/resources/name.txt");
         Map<String,Integer> countMap = simplePrograms.sortWithLastNameAppearance(inputFile);
         Assert.assertEquals(2,countMap.get("Mayer").longValue());
 

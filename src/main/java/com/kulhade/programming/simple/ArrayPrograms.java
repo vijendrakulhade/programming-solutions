@@ -306,6 +306,7 @@ public class ArrayPrograms {
     public boolean jump_memorization(int[] numbers){
 
         boolean[] memo = new boolean[numbers.length];
+        memo[numbers.length-1]=true;
         if(numbers.length==0){
             return false;
         }else if(numbers.length==1){
@@ -326,6 +327,7 @@ public class ArrayPrograms {
         }
         for(int i=max_allowed_jump;i>index;i--){
             if(jump_recursion(numbers,i,memo)){
+                memo[i]=true;
                 return true;
             }
         }
