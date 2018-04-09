@@ -80,4 +80,28 @@ public class StringProgramTest {
         String palindrome = stringPrograms.longestPalindrome(str);
         Assert.assertEquals("abcdcba",palindrome);
     }
+
+    @Test
+    public void testReverseWithSpace(){
+        char[] arr = {' ',' '};
+        char[] actual = stringPrograms.reverseWithSpace(arr);
+        char[] expected = {' ',' '};
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void testReverseWithSpace_1(){
+        char[] arr = {'p','e','r','f','a','c','t',' ','m','a','k','e','s',' ','p','r','a','c','t','i','c','e'};
+        char[] actual = stringPrograms.reverseWithSpace(arr);
+        char[] expected = {'p','r','a','c','t','i','c','e',' ','m','a','k','e','s',' ','p','e','r','f','a','c','t'};
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void testReverseWithSpace_2(){
+        char[] arr = {'h','e','l','l','o'};
+        char[] actual = stringPrograms.reverseWithSpace(arr);
+        char[] expected = {'h','e','l','l','o'};
+        Assert.assertArrayEquals(expected,actual);
+    }
 }

@@ -7,6 +7,50 @@ import java.util.*;
  */
 public class ArrayPrograms {
     /**
+     * method will search insert position of target or expected insert position
+     * in a sorted array
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int searchInsertPosition(int[] nums,int target){
+        if(nums==null || nums.length==0) return 0;
+        int start = 0;
+        int end = nums.length-1;
+        int m = 0;
+        if(target>nums[end]){
+            return end+1;
+        }
+        while(start<end){
+            m = (start+end)/2;
+            if(nums[m]<target){
+                start = m;
+            }else if(nums[m]==target){
+                return m;
+            }else{
+                end = m;
+            }
+        }
+        return m;
+    }
+    /**
+     * Method will sort the array by using reverse method which will be actually reversing
+     * the specific elements only
+     * @See reverse
+     * @param arr
+     * @return
+     */
+    public int[] pancakeSort(int[] arr){
+        int length = arr.length;
+        while(length>0){
+            int index_highest = findMaxIndex(arr,length);
+            arr = reverse(arr,index_highest+1);
+            arr = reverse(arr,length);
+            length--;
+        }
+        return arr;
+    }
+    /**
      * Method will return triplets with sum 0
      * @param nums
      * @return
@@ -113,8 +157,31 @@ public class ArrayPrograms {
         }
         return stack.pop();
     }
+
     /**
-     * Method will reverse the input array inplace
+     * Method will reverse/flip first k elements
+     * @param nums
+     * @param right
+     * @return nums
+     */
+    public int[] reverse(int[] nums,int right){
+        if(nums==null || nums.length==0){
+            return null;
+        }
+        if(right<0){
+            throw new IllegalArgumentException("Incorrect index provided!!");
+        }
+        int left = 0;
+        while(left<right-1){
+            int temp = nums[left];
+            nums[left]= nums[right-1];
+            nums[right-1] = temp;
+            left++;right--;
+        }
+        return nums;
+    }
+    /**
+     * Method will reverse the input array in place
      * @param nums
      * @param left
      * @param right
@@ -154,6 +221,7 @@ public class ArrayPrograms {
 
     /**
      * Method will rotate an array by k step
+     * clock wise rotate i.e. last k element
      * Eg. [1,2,3,4,5,6,7] k=3 --> [5,6,7,1,2,3,4]
      * @param nums
      * @param k
@@ -175,6 +243,40 @@ public class ArrayPrograms {
             result[i]=nums[j++];
         }
         return result;
+    }
+
+    public int[] rotateLeftToRight(int[] nums,int k){
+        if(nums==null || k<0){
+            throw new IllegalArgumentException("Illegal Arguments");
+        }
+        if(nums.length==0 || k==0){
+            return nums;
+        }
+        int[] result = new int[nums.length];
+        int i=0;
+        for(;i<nums.length-k;i++){
+            result[i] = nums[k+i];
+        }
+
+        for(int j=0;j<k;j++){
+            result[i]=nums[j];
+            i++;
+        }
+
+
+        return result;
+    }
+
+    public int findMaxIndex(int[] arr,int length){
+        int max = Integer.MIN_VALUE;
+        int max_index = 0;
+        for(int i=0;i<length;i++){
+            if(arr[i]>max){
+                max = arr[i];
+                max_index = i;
+            }
+        }
+        return max_index;
     }
 
     /**

@@ -113,6 +113,36 @@ public class StringPrograms {
         }
         return t[word.length()];
     }
+
+    public char[] reverseWithSpace(char[] arr){
+        if(arr==null || arr.length==0) return arr;
+        reverse(arr,0,arr.length-1);
+        for(int i=0,j=0;j<arr.length;j++){
+            if(arr[j]!=' ' && j!=arr.length-1){
+                continue;
+            }else if(j==arr.length-1){
+                reverse(arr,i,j);
+            }else{
+                reverse(arr,i,j-1);
+            }
+            i=j+1;
+        }
+        return arr;
+    }
+    public void reverse(char[] nums,int left,int right){
+        if(nums==null || nums.length==0){
+            return;
+        }
+        if(right<left){
+            throw new IllegalArgumentException("Incorrect index provided!!");
+        }
+        while(left<right){
+            char temp = nums[left];
+            nums[left]= nums[right];
+            nums[right] = temp;
+            left++;right--;
+        }
+    }
     /**
      * Method returns the longest palindrome substring
      * @param str

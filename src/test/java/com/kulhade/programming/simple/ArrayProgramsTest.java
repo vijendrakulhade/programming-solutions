@@ -152,4 +152,51 @@ public class ArrayProgramsTest {
         Assert.assertTrue(actual);
     }
 
+    @Test
+    public void testRotateLeftToRight(){
+        int[] input = {1, 5, 4, 3, 2};
+        int[] expected  = {4, 3, 2, 1, 5};
+        int[] actual = arrayPrograms.rotateLeftToRight(input,2);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void testRotateLeftToRight_1(){
+        int[] input = {4, 3, 2, 1, 5};
+        int[] expected  = {4,3,2,1,5};
+        int[] actual = arrayPrograms.rotateLeftToRight(input,5);
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void testPancakeSort(){
+        int[] input = {1, 5, 4, 3, 2};
+        int[] actual = arrayPrograms.pancakeSort(input);
+        int[] expected  = {1, 2, 3, 4, 5};
+        Assert.assertArrayEquals(expected,actual);
+    }
+
+
+
+    @Test
+    public void testSearchInsertPosition_0(){
+        int[] input = {1, 3,5, 6};
+        int actual = arrayPrograms.searchInsertPosition(input,5);
+        Assert.assertEquals(2,actual);
+    }
+
+    @Test
+    public void testSearchInsertPosition_1(){
+        int[] input = {1, 3,5, 6};
+        int actual = arrayPrograms.searchInsertPosition(input,0);
+        Assert.assertEquals(0,actual);
+    }
+
+    @Test
+    public void testSearchInsertPosition(){
+        int[] input = {1, 3,5, 6};
+        int actual = arrayPrograms.searchInsertPosition(input,7);
+        Assert.assertEquals(4,actual);
+    }
+
 }
