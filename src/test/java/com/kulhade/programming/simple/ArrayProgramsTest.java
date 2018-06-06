@@ -199,4 +199,31 @@ public class ArrayProgramsTest {
         Assert.assertEquals(4,actual);
     }
 
+    @Test
+    public void testAllSubSet(){
+        int[] input = {3,5,6};
+        List<List<Integer>> actual = arrayPrograms.allSubsets(input);
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(new ArrayList<>());
+        expected.add(Arrays.asList(3));expected.add(Arrays.asList(5));
+        expected.add(Arrays.asList(3,5));expected.add(Arrays.asList(6));
+        expected.add(Arrays.asList(3,6));expected.add(Arrays.asList(5,6));
+        expected.add(Arrays.asList(3,5,6));
+        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+    }
+
+    @Test
+    public void testFindMinInRotatedSortedArray(){
+        int[] input={4,5,6,7,-2,-1,1,2};
+        int actual = arrayPrograms.findMinInRotatedSortedArray(input);
+        Assert.assertEquals(-2,actual);
+    }
+
+    @Test
+    public void testFindMinInRotatedSortedArray_2(){
+        int[] input={3,1,2};
+        int actual = arrayPrograms.findMinInRotatedSortedArray(input);
+        Assert.assertEquals(1,actual);
+    }
+
 }

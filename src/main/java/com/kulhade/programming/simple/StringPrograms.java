@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Created by vn05f93 on 3/11/18.
- * Some if the String problems are solved by Dynamic Programming
+ * Some of the String problems are solved by Dynamic Programming
  */
 public class StringPrograms {
 
@@ -134,7 +134,7 @@ public class StringPrograms {
             return;
         }
         if(right<left){
-            throw new IllegalArgumentException("Incorrect index provided!!");
+            return;
         }
         while(left<right){
             char temp = nums[left];
@@ -173,4 +173,47 @@ public class StringPrograms {
         }
         return str.substring(begin+1,end);
     }
+
+    /**
+     * Mthod will provide count of unique chars substring
+     * @param s
+     * @return length of substring with unique chars
+     */
+    public int longestUniqueCharSubstring(String s){
+        if(s==null) return 0;
+        if(s.length()<=1) return 1;
+        int max = 0;
+        int start=0;
+        Map<Character,Integer> memo = new HashMap<>();
+        for(int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if(memo.containsKey(c) && memo.get(c)>=start){
+                start = memo.get(c)+1;
+            }
+            memo.put(c,i);
+            max = Math.max(max,i-start+1);
+        }
+        return max;
+    }
+
+    /**
+     * Method will return longest common prefix String
+     * @param strs
+     * @return longest prefix substring
+     */
+    public String longestCommonPrefix(String[] strs){
+        if(strs==null || strs.length==0) return "";
+        String lcp = strs[0];
+        for(int i=1;i<strs.length;i++){
+            int j=0;
+            String curr = strs[i];
+            while(j<lcp.length() && j<curr.length() && lcp.charAt(j)==curr.charAt(j)){
+                j++;
+            }
+            if(j==0) return "";
+            lcp = curr.substring(0,j);
+        }
+        return lcp;
+    }
+
 }

@@ -24,6 +24,10 @@ public class TwoDimensionalArrayProgramsTest {
     }
 
     @Test
+    public void testPrintTwoDimArrTranspose(){
+        twoDimensionalArrayPrograms.printTwoDimArrTranspose();
+    }
+    @Test
     public void testSpiralOrder(){
         int[][] matrix = new int[3][4];
         for(int i=0;i<3;i++){
@@ -35,5 +39,29 @@ public class TwoDimensionalArrayProgramsTest {
         List<Integer> actual = twoDimensionalArrayPrograms.spiralPrint(matrix);
         Assert.assertArrayEquals(expected.toArray(),actual.toArray());
 
+    }
+
+    @Test
+    public void testNumOfIsland(){
+        int[][] matrix = new int[4][4];
+        for(int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                matrix[i][j]=1;
+            }
+        }
+        int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
+        Assert.assertEquals(1,count);
+    }
+
+    @Test
+    public void testNumOfIsland_1(){
+        int[][] matrix = new int[4][4];
+        for(int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                matrix[i][j]=1;
+            }
+        }
+        int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
+        Assert.assertEquals(1,count);
     }
 }

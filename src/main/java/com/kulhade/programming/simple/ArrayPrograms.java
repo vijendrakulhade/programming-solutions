@@ -435,4 +435,48 @@ public class ArrayPrograms {
         }
         return false;
     }
+
+    /**
+     * Method will print all possible subsets of a given set
+     * @param superset
+     * @return
+     */
+    public List<List<Integer>> allSubsets(int[] superset){
+        if(superset==null || superset.length==0) return null;
+        int n = superset.length;
+        List<List<Integer>> allSubsets = new ArrayList<>();
+        if(n==1){
+            allSubsets.add(Arrays.asList(superset[0]));
+            return allSubsets;
+        }
+        for(int i=0;i<1<<n;i++){
+            List<Integer> subset = new ArrayList<>();
+            for(int j=0;j<n;j++){
+                if((i & (1<<j)) > 0){
+                    subset.add(superset[j]);
+                }
+            }
+            allSubsets.add(subset);
+        }
+        return allSubsets;
+    }
+
+    public int findMinInRotatedSortedArray(int[] arr){
+        if(arr==null || arr.length==0) throw new IllegalArgumentException("Illegal Argument");
+        if(arr.length==1)return arr[0];
+        return findMin(arr,0,arr.length-1);
+    }
+
+    private int findMin(int[] arr,int i,int j){
+        if(j-i==1) return Math.min(arr[i],arr[j]);
+        int middle =i+(j-i)/2;
+        if(arr[i]<arr[j]){ //not rotated
+            return arr[i];
+        }else if(arr[middle]>arr[i]){
+           return findMin(arr,middle,j);
+        }else{
+            return findMin(arr,i,middle);
+        }
+    }
+
 }

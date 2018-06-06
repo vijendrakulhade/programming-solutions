@@ -102,15 +102,67 @@ public class DynamicProgramming {
         }
         int amountWithCoins = 0; int ways=0;
         String key = money+"_"+index;
-        if(!memo.containsKey(key)) {
-            while (amountWithCoins <= money) {
-                int remaining = money - amountWithCoins;
-                ways += makeChange(coins, remaining, index + 1,memo);
-                amountWithCoins += coins[index];
-            }
-            memo.put(key,ways);
+        if(memo.containsKey(key)) {
+            return memo.get(key);
         }
+        while (amountWithCoins <= money) {
+            int remaining = money - amountWithCoins;
+            ways += makeChange(coins, remaining, index + 1,memo);
+            amountWithCoins += coins[index];
+        }
+        memo.put(key,ways);
         return memo.get(key);
+    }
+
+    public List<List<Integer>> findAllPossibleChangeForMoney(int[] coins,int money){
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
+        wayToChangesMoney(coins,money,0,current,result);
+        return result;
+    }
+    private void wayToChangesMoney(int[] coins,int money,int index,List<Integer> curr,List<List<Integer>> result){
+        if(money == 0){
+            List<Integer> temp = new ArrayList<>(curr);
+            result.add(temp);
+            return;
+        }
+        for(int i=index;i<coins.length;i++){
+            if(coins[i]>money){
+                return;
+            }
+            curr.add(coins[i]);
+            wayToChangesMoney(coins,money-coins[i],i,curr,result);
+            curr.remove(curr.size()-1);
+        }
+
+    }
+    public List<List<Integer>> showMoneyChangeCombinations(int[] coins,int money){
+        List<List<Integer>> result = new ArrayList<>();
+        if(coins==null || coins.length==0) return result;
+        Map<String,List> memo = new HashMap<>();
+        makeChangeCombinations(coins,money,0,new ArrayList<>(),result,memo);
+        return result;
+    }
+    private void makeChangeCombinations(int[] coins,int money,int index,List<Integer> current,List<List<Integer>> result,Map<String,List> memo){
+        if(money == 0){
+            result.add(current);
+            return;
+        }
+        if(index >= coins.length){
+            return;
+        }
+        int amountWithCoins = 0; int ways=0;
+        String key = money+"_"+index;
+        if(memo.containsKey(key)) {
+            result.add(memo.get(key));
+        }
+        while (amountWithCoins <= money) {
+            int remaining = money - amountWithCoins;
+            makeChangeCombinations(coins, remaining, index + 1,current,result,memo);
+            amountWithCoins += coins[index];
+
+        }
+        memo.put(key,current);
     }
 
     private int makeChangeNoRecursion(int amount,int[] coins){
@@ -151,6 +203,66 @@ public class DynamicProgramming {
         }
     }
 
+
+    /**
+     * Longest Common sub-sequence iterative
+     * Method will return the length of longest common sub-sequence from 2 strings
+     * Eg. str1="ADBFGT" , str2="GBFCHX" Answer GBF
+     * Recursion
+     */
+    public int longestCommonSubsequenceIterative(String str1,String str2){
+        if(str1.length()==0 || str2.length()==0){
+            return 0;
+        }
+        int[][] memo = new int[str1.length()+1][str2.length()+1];
+        for(int j=0;j<memo[0].length;j++){
+            memo[0][j]=1;
+        }
+        for (int i=1;i<memo.length;i++){
+            for(int j=1;j<memo[0].length;j++){
+                if(str1.charAt(i-1)==str2.charAt(j-1)){
+                    memo[i][j] = Math.max(memo[i][j-1],memo[i-1][j-1]);
+                }else{
+                    memo[i][j] = memo[i-1][j-1];
+                }
+            }
+        }
+        return memo[str1.length()][str2.length()];
+    }
+
+    public int distinctCommonSubSequence(String str1,String str2){
+        if(str2.length() == 0) return 0;
+        if(str1.length() == 0) return 0;
+        if(str1.charAt(0)!=str2.charAt(0)){
+            return distinctCommonSubSequence(str1.substring(1),str2.substring(1));
+        }else{
+            return distinctCommonSubSequence(str1.substring(1),str2)+distinctCommonSubSequence(str1.substring(1),str2.substring(1));
+        }
+
+    }
+
+    public int distinctCommonSubSequenceIterative(String str1,String str2){
+        if(str2.length() == 0) return 0;
+        if(str1.length() == 0) return 0;
+        int[][] arr = new int[str1.length()+1][str2.length()+1];
+        for(int i=0;i<arr.length;i++)
+            arr[i][0]=1;
+
+        for(int i=1;i<arr.length;i++){
+            for(int j=1;j<arr[0].length;j++){
+                if(str1.charAt(i-1)==str2.charAt(j-1)){
+                    arr[i][j]=arr[i-1][j]+arr[i-1][j-1];
+                }else{
+                    arr[i][j]=arr[i-1][j];
+                }
+            }
+        }
+
+        printTwoDimArr(arr);
+
+        return arr[str1.length()][str2.length()];
+    }
+
     public List<String> subStringsKDist(String inputStr, int num)
     {
         if(inputStr == null) { return null; }
@@ -159,9 +271,6 @@ public class DynamicProgramming {
         List<String> subStringsKDist = new ArrayList();
 
         if(num > 0){
-            for( Character c:inputStr.toCharArray()){
-
-            }
             for(int i=0,j=0;i<inputStr.length();i++){
                 /*if(memo.containsKey(chars[i])){
                     j = Math.max(memo.get(chars[i]),j);
@@ -265,6 +374,41 @@ public class DynamicProgramming {
     }
 
     /**
+     * Method will print the min operations required to make str1 to str2
+     * Iterative
+     *
+     */
+    public int minEditDistanceIterative(String str1,String str2){
+        if(str1.length()==0){
+            return str2.length();
+        }
+        if(str2.length()==0){
+            return str1.length();
+        }
+        if(str1.equalsIgnoreCase(str2)){
+            return 0;
+        }
+        int[][] memo = new int[str1.length()+1][str2.length()+1];
+        for(int i=0;i<memo.length;i++){
+            memo[i][0]=i;
+        }
+        for(int j=0;j<memo[0].length;j++){
+            memo[0][j]=j;
+        }
+        for(int i=1;i<memo.length;i++){
+            for (int j=1;j<memo[0].length;j++){
+                if(str1.charAt(i-1)==str2.charAt(j-1)){
+                    memo[i][j]=memo[i-1][j-1];
+                }else{
+                    memo[i][j]=1+Math.min(Math.min(memo[i-1][j],memo[i][j-1]),memo[i-1][j-1]);
+                }
+            }
+        }
+        return memo[str1.length()][str2.length()];
+
+    }
+
+    /**
      * Method will remove consecutive duplicates from String
      */
     public String super_reduced_string(String s){
@@ -314,6 +458,16 @@ public class DynamicProgramming {
         String start = word.substring(0,i);
         String end = word.substring(i);
         return start+c+end;
+    }
+
+    private void printTwoDimArr(int[][] arr){
+        if(arr==null) return;
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr[0].length;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
     }
 }
 

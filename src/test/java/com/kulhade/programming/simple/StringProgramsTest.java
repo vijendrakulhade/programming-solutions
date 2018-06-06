@@ -15,7 +15,7 @@ import java.util.Set;
  * Created by vn05f93 on 3/11/18.
  */
 @RunWith(JUnit4.class)
-public class StringProgramTest {
+public class StringProgramsTest {
 
     static StringPrograms stringPrograms;
     @BeforeClass
@@ -103,5 +103,34 @@ public class StringProgramTest {
         char[] actual = stringPrograms.reverseWithSpace(arr);
         char[] expected = {'h','e','l','l','o'};
         Assert.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void testLongestUniqueCharSubstring(){
+        String s = "abcba";
+        int actual = stringPrograms.longestUniqueCharSubstring(s);
+        Assert.assertEquals(3,actual);
+    }
+
+    @Test
+    public void testLongestUniqueCharSubstring_1(){
+        String s = "obamacare";
+        int actual = stringPrograms.longestUniqueCharSubstring(s);
+        Assert.assertEquals(4,actual);
+    }
+
+    @Test
+    public void testLongestCommonPrefix(){
+        String[] strs = {"aaa","ab","abc"};
+        String actual = stringPrograms.longestCommonPrefix(strs);
+        Assert.assertEquals("a",actual);
+    }
+
+    @Test
+    public void testBasic(){
+        String s = "some";
+        Assert.assertEquals("ome",s.substring(1).intern());
+        String s1 = "something";
+        Assert.assertEquals("somethin",s1.substring(0,s1.length()-1).intern());
     }
 }

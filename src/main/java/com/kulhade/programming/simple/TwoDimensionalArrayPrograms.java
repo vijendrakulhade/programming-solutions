@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TwoDimensionalArrayPrograms {
-
+    /**
+     * Method prints matrix in regular order
+     * 00 01 02
+     * 10 11 12
+     * 20 21 22
+     */
     public void printTwoDimArr(){
         int[][] matrix = new int[3][4];
         for(int i=0;i<3;i++){
@@ -15,7 +20,29 @@ public class TwoDimensionalArrayPrograms {
             System.out.println();
         }
     }
+    /**
+     * Method prints transpose of matrix
+     * 00 01 02
+     * 10 11 12 --> column first
+     * 20 21 22
+     */
+    public void printTwoDimArrTranspose(){
+        int[][] matrix = new int[4][3];
+        for(int i=0;i<3;i++){
+            for(int j=0;j<4;j++){
+                matrix[j][i]=i+j;
+                System.out.print(matrix[j][i]+" ");
+            }
+            System.out.println();
+        }
+    }
 
+    /**
+     * Method prints matrix in spiral order
+     * 00 01 02
+     * 10 11 12  --> 00 01 02 12 22 21 20 10 11
+     * 20 21 22
+     */
     public List<Integer> spiralPrint(int[][] matrix){
         List<Integer> result = new ArrayList<>();
         if(matrix==null || matrix.length==0){
@@ -55,5 +82,38 @@ public class TwoDimensionalArrayPrograms {
         }
 
         return result;
+    }
+
+    /**
+     * Num of Islands
+     * Method will count group of 1's and return the number
+     */
+    public int numOfIsland(int[][] matrix){
+        if(matrix==null)return 0;
+        int m= matrix.length;
+        int n=matrix[0].length;
+        int count=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j]==1) {
+                    count++;
+                    searchLand(matrix, i, j);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void searchLand(int[][] matrix,int i,int j){
+        int m= matrix.length;
+        int n=matrix[0].length;
+        if((i<0 || i>=m) || (j<0 || j>=n) || matrix[i][j]!=1){
+            return;
+        }
+        matrix[i][j]+=1;
+        searchLand(matrix,i+1,j);
+        searchLand(matrix,i,j+1);
+        searchLand(matrix,i-1,j);
+        searchLand(matrix,i,j-1);
     }
 }
