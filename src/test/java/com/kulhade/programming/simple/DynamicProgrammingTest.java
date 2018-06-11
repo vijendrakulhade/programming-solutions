@@ -75,10 +75,10 @@ public class DynamicProgrammingTest {
 
     @Test
     public void testFindWaysToMakeChangeNoRecursion_1(){
-        int[] coins = {5,2,1};
-        int money = 12;
+        int[] coins = {1,2,5};
+        int money = 5;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(13,ways);
+        Assert.assertEquals(4,ways);
     }
 
     @Test

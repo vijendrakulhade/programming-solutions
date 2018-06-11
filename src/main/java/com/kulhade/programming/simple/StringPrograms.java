@@ -114,6 +114,11 @@ public class StringPrograms {
         return t[word.length()];
     }
 
+    /**
+     * Method reverse the String with space
+     * @param arr
+     * @return
+     */
     public char[] reverseWithSpace(char[] arr){
         if(arr==null || arr.length==0) return arr;
         reverse(arr,0,arr.length-1);
@@ -214,6 +219,46 @@ public class StringPrograms {
             lcp = curr.substring(0,j);
         }
         return lcp;
+    }
+
+    public List<List<String>> palindromePartitions(String s){
+        if(s==null) return null;
+        List<List<String>> result = new ArrayList<>();
+        if(s.length()<=1){
+            List<String> temp = new ArrayList<>();
+            temp.add(s);
+            result.add(temp);
+            return result;
+        }
+        List<String> current = new ArrayList<>();
+        //Method to iterate String and backtrack it recursively
+        partitions(s,0,current,result);
+        return result;
+    }
+
+    private void partitions(String s,int index,List<String> current,List<List<String>> result){
+        if(current.size()>0 &&s.length()<=index){
+            result.add(new ArrayList<>(current));
+            return;
+        }
+        for(int i=index;i<s.length();i++){
+            if(isPalindrome(s.substring(index,i+1))){
+                current.add(s.substring(index,i+1));
+                partitions(s,i+1,current,result);
+                current.remove(current.size()-1);
+            }
+        }
+    }
+
+    private boolean isPalindrome(String s){
+        int start = 0;
+        int end = s.length()-1;
+        while(start<end){
+            if(s.charAt(start++)!=s.charAt(end--)){
+                return false;
+            }
+        }
+        return true;
     }
 
 }

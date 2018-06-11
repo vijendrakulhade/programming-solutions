@@ -479,4 +479,21 @@ public class ArrayPrograms {
         }
     }
 
+    public int removeDuplicates(int[] nums) {
+        if(nums==null || nums.length<=1) return 0;
+        int start=0;
+        int end = nums.length-1;
+        int i=1;
+        while(i<=end){
+            if(nums[start]==nums[i]){
+                i++;
+            }else{
+                start++;
+                nums[start]=nums[i++];
+            }
+        }
+        return start+1;
+
+    }
+
 }

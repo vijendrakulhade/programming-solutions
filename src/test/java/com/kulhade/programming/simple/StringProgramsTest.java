@@ -133,4 +133,32 @@ public class StringProgramsTest {
         String s1 = "something";
         Assert.assertEquals("somethin",s1.substring(0,s1.length()-1).intern());
     }
+
+    @Test
+    public void testPalindromePartitions(){
+        String aab = "aab";
+        List<String> cur = new ArrayList<>();
+        cur.add("a");cur.add("a");cur.add("b");
+        List<List<String>> expected = new ArrayList<>();
+        expected.add(cur);
+        cur = new ArrayList<>();
+        cur.add("aa");cur.add("b");
+        expected.add(cur);
+        List<List<String>> actual = stringPrograms.palindromePartitions(aab);
+        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+    }
+
+    @Test
+    public void testPalindromePartitions_1(){
+        String aab = "aab";
+        List<String> cur = new ArrayList<>();
+        cur.add("a");cur.add("a");cur.add("b");
+        List<List<String>> expected = new ArrayList<>();
+        expected.add(cur);
+        cur = new ArrayList<>();
+        cur.add("aa");cur.add("b");
+        expected.add(cur);
+        List<List<String>> actual = stringPrograms.palindromePartitions(aab);
+        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+    }
 }

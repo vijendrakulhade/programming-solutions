@@ -226,4 +226,12 @@ public class ArrayProgramsTest {
         Assert.assertEquals(1,actual);
     }
 
+    @Test
+    public void testRemoveDuplicates(){
+        int[] input = {1,1,2};
+        int actual = arrayPrograms.removeDuplicates(input);
+        int  expected = 2;
+        Assert.assertEquals(expected,actual);
+    }
+
 }

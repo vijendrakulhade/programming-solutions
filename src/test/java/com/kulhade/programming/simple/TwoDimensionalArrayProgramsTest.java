@@ -57,10 +57,21 @@ public class TwoDimensionalArrayProgramsTest {
     public void testNumOfIsland_1(){
         int[][] matrix = new int[4][4];
         for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
-                matrix[i][j]=1;
-            }
+            if(i%2!=0)
+                matrix[0][i]=1;
+            else
+                matrix[0][i]=0;
         }
+        int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
+        Assert.assertEquals(2,count);
+    }
+
+    @Test
+    public void testNumOfIsland_2(){
+        //
+        //[[0,1,0,1,0],[0,0,1,1,1],[1,0,0,1,0],[0,1,1,0,0],[1,0,1,0,1]]
+        int[][] matrix = new int[1][1];
+                matrix[0][0]=1;
         int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
         Assert.assertEquals(1,count);
     }
