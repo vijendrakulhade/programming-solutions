@@ -34,8 +34,19 @@ public class ArrayProgramsTest {
         pair.add(-1);pair.add(0);pair.add(1);
         expected.add(pair);
         List<List<Integer>> actual = arrayPrograms.threeSum(nums);
+        Assert.assertEquals(expected.size(),actual.size());
         Assert.assertArrayEquals(expected.get(0).toArray(),actual.get(0).toArray());
         Assert.assertArrayEquals(expected.get(1).toArray(),actual.get(1).toArray());
+    }
+
+    @Test
+    public void testThreeSum_0() {
+        int[] nums = {0,0,0};
+        List<List<Integer>> expected = new ArrayList<>();
+        expected.add(Arrays.asList(0,0,0));
+        List<List<Integer>> actual = arrayPrograms.threeSum(nums);
+        Assert.assertEquals(expected.size(),actual.size());
+        Assert.assertArrayEquals(expected.get(0).toArray(),actual.get(0).toArray());
     }
     @Test
     public void testTwoSum(){
@@ -137,6 +148,12 @@ public class ArrayProgramsTest {
         boolean actual = arrayPrograms.jump(numbers,0);
         Assert.assertFalse(actual);
     }
+    @Test
+    public void testJumpFalse_1(){
+        int[] numbers = {1,2,3};
+        boolean actual = arrayPrograms.jump(numbers,0);
+        Assert.assertFalse(actual);
+    }
 
     @Test
     public void testJumpTrue(){
@@ -200,6 +217,13 @@ public class ArrayProgramsTest {
     }
 
     @Test
+    public void testSearchInsertPosition_2(){
+        int[] input = {1, 3};
+        int actual = arrayPrograms.searchInsertPosition(input,2);
+        Assert.assertEquals(1,actual);
+    }
+
+    @Test
     public void testAllSubSet(){
         int[] input = {3,5,6};
         List<List<Integer>> actual = arrayPrograms.allSubsets(input);
@@ -232,6 +256,34 @@ public class ArrayProgramsTest {
         int actual = arrayPrograms.removeDuplicates(input);
         int  expected = 2;
         Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void testMoveZeroRight(){
+        int[] input = {0,1,0,3,12};
+        int[] expected = {1,3,12,0,0};
+        arrayPrograms.moveZeroesRight(input);
+        Assert.assertArrayEquals(expected,input);
+    }
+
+    @Test
+    public void testMoveZeroLeft(){
+        int[] input = {0,1,0,3,12};
+        int[] expected = {0,0,1,3,12};
+        arrayPrograms.moveZerosLeft(input);
+        Assert.assertArrayEquals(expected,input);
+    }
+
+    @Test
+    public void testMergeKSortedList(){
+        List<List<Integer>> input = new ArrayList<>();
+        input.add(new ArrayList<>(Arrays.asList(0,1,3,12)));
+        input.add(new ArrayList<>(Arrays.asList(2,3,4)));
+        input.add(new ArrayList<>(Arrays.asList(5,8,13)));
+        List<Integer> expected = Arrays.asList(0,1,2,3,3,4,5,8,12,13);
+        List<Integer> actual =  arrayPrograms.mergeKSortedList(input);
+        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+
     }
 
 }

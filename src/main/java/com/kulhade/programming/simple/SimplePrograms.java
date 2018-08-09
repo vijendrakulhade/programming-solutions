@@ -3,6 +3,7 @@ package com.kulhade.programming.simple;
 import com.kulhade.programming.entity.Interval;
 
 import java.io.*;
+import java.time.Period;
 import java.util.*;
 
 /**
@@ -135,6 +136,7 @@ public class SimplePrograms<T extends Comparable<T>> {
         if(intervals.isEmpty()) return;
         intervals.add(newInterval);
         mergeIntervalList(intervals);
+       PriorityQueue<Character> q  =  new PriorityQueue<>(10,(o1, o2) -> {return 1;});
     }
 
     private Comparable<T> max(Comparable<T> first,Comparable<T> second){

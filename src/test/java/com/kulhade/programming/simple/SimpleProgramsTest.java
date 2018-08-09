@@ -95,6 +95,18 @@ public class SimpleProgramsTest {
         Interval actual = (Interval)intervals.toArray()[0];
         Assert.assertEquals(expectedChange.getEnd(),actual.getEnd());
     }
+
+    @Test
+    public void testMergeList_2(){
+        List<Interval<Integer>> intervals = new ArrayList<>();
+        intervals.add(new Interval<>(1,4));
+        intervals.add(new Interval<>(0,2));
+        intervals.add(new Interval<>(3,5));
+        simplePrograms.mergeIntervalList(intervals);
+        Interval expectedChange = new Interval(0,5);
+        Interval actual = (Interval)intervals.toArray()[0];
+        Assert.assertEquals(expectedChange.getEnd(),actual.getEnd());
+    }
     //Need to manually verify the values
     @Test
     public void testInsertInterval_1(){

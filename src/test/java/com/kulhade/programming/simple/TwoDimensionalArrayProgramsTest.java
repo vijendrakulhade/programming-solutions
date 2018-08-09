@@ -75,4 +75,16 @@ public class TwoDimensionalArrayProgramsTest {
         int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
         Assert.assertEquals(1,count);
     }
+
+    @Test
+    public void testRotateImage(){
+        int[][] matrix = {{1,2,3},{4,5,6},{7,8,9}};
+
+        twoDimensionalArrayPrograms.print(matrix);
+
+        twoDimensionalArrayPrograms.rotate(matrix);
+        System.out.println();
+        twoDimensionalArrayPrograms.print(matrix);
+
+    }
 }

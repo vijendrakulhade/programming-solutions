@@ -161,4 +161,24 @@ public class StringProgramsTest {
         List<List<String>> actual = stringPrograms.palindromePartitions(aab);
         Assert.assertArrayEquals(expected.toArray(),actual.toArray());
     }
+
+    @Test
+    public void testIsMatch(){
+        String s="aab", p="c*a*b";
+        Assert.assertTrue(stringPrograms.isMatch(s,p));
+    }
+
+    @Test
+    public void testStringMethods(){
+        String s = "A man, a plan, a canal: Panama";
+        s = s.replaceAll("[^a-zA-Z0-9]+","").toLowerCase();
+        System.out.print(s);
+    }
+
+    @Test
+    public void testStringSub(){
+        String s = "abcdebdde";
+        System.out.println(s.substring(1,5));
+    }
+
 }

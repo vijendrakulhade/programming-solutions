@@ -21,17 +21,17 @@ public class ArrayPrograms {
         if(target>nums[end]){
             return end+1;
         }
-        while(start<end){
-            m = (start+end)/2;
+        while(start<=end){
+            m = start+(end-start)/2;
             if(nums[m]<target){
-                start = m;
+                start = m+1;
             }else if(nums[m]==target){
                 return m;
             }else{
-                end = m;
+                end = m-1;
             }
         }
-        return m;
+        return start;
     }
     /**
      * Method will sort the array by using reverse method which will be actually reversing
@@ -62,24 +62,30 @@ public class ArrayPrograms {
         List<List<Integer>> result = new ArrayList();
         Arrays.sort(nums); //Dual Pivot Quick Sort O(n log n)
         for(int i=0;i<nums.length-2;i++){
-            int j=i+1;
-            int k=nums.length-1;
-            while(j<k){
-                if(nums[i]+nums[j]+nums[k]==0){
-                    List<Integer> pair = new ArrayList<>(3);
-                    pair.add(nums[i]);
-                    pair.add(nums[j]);
-                    pair.add(nums[k]);
-                    result.add(pair);
-                    j++;k--;
-                    //Handle Duplicate
-                }else if(nums[i]+nums[j]+nums[k]<0){
-                    j++;
-                }else{
-                    k--;
+            if(i>0 && nums[i]==nums[i-1]) {
+                continue;
+            }
+                int j = i + 1;
+                int k = nums.length - 1;
+                while (j < k) {
+                    if (nums[i] + nums[j] + nums[k] == 0) {
+                        List<Integer> pair = new ArrayList<>(3);
+                        pair.add(nums[i]);
+                        pair.add(nums[j]);
+                        pair.add(nums[k]);
+                        result.add(pair);
+                        j++;
+                        k--;
+                        //Handle Duplicate
+                        while (j < k && nums[j] == nums[j + 1]) j++;
+                        while (j < k && nums[k] == nums[k - 1]) k--;
+                    } else if (nums[i] + nums[j] + nums[k] < 0) {
+                        j++;
+                    } else {
+                        k--;
+                    }
                 }
             }
-        }
         return result;
     }
     /**
@@ -494,6 +500,78 @@ public class ArrayPrograms {
         }
         return start+1;
 
+    }
+
+    /**
+     * move all zeros to right
+     */
+
+    public void moveZeroesRight(int[] nums) {
+        if(nums==null || nums.length==0) return;
+        int j=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]!=0) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j++] = temp;
+            }
+        }
+
+    }
+
+    /**
+     * move all zeros to left
+     */
+
+    public void moveZerosLeft(int[] nums) {
+        if(nums==null || nums.length==0) return;
+        int j=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==0) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j++] = temp;
+            }
+        }
+
+    }
+
+    public class ListContainer implements Comparable{
+
+        private List<Integer> list;
+        private int index;
+
+        public ListContainer(List<Integer> list,int index){
+            this.list = list;
+            this.index= index;
+        }
+
+
+        @Override
+        public int compareTo(Object o) {
+            ListContainer i = (ListContainer) o;
+            return this.list.get(index) - i.list.get(i.index);
+        }
+    }
+    /**
+     * Merge K sorted Arrays
+     */
+    public List<Integer> mergeKSortedList(List<List<Integer>> lists){
+        List<Integer> result = new ArrayList<>();
+        PriorityQueue<ListContainer> q = new PriorityQueue<>(lists.size());
+        for(List<Integer> list:lists){
+            ListContainer container = new ListContainer(list,0);
+            q.offer(container);
+        }
+
+        while(!q.isEmpty()){
+            ListContainer container = q.poll();
+            result.add(container.list.get(container.index));
+            if(container.index < container.list.size()-1)
+                q.offer(new ListContainer(container.list,container.index+1));
+        }
+
+        return result;
     }
 
 }
