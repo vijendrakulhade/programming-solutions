@@ -574,4 +574,17 @@ public class ArrayPrograms {
         return result;
     }
 
+    int[] cellCompete(int[] stats,int days){
+        int[] result = new int[stats.length];
+        for(int i=0;i<days;i++){
+            result[0]=0^stats[0];
+            for(int j=1;j<stats.length-1;j++){
+                result[j]=stats[j-1]^stats[j+1];
+            }
+            result[stats.length-1]=0^stats[stats.length-2];
+            stats = result;
+        }
+        return result;
+   }
+
 }

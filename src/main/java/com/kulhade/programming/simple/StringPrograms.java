@@ -318,5 +318,7 @@ public class StringPrograms {
             }
             System.out.println();
         }
+        int[] result = new int[5];
+        Arrays.asList(result);
     }
 }

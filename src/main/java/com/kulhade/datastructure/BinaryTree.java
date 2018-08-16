@@ -1,9 +1,6 @@
 package com.kulhade.datastructure;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class BinaryTree<T extends Comparable<T>> {
     private BTNode<T> root;
@@ -24,7 +21,9 @@ public class BinaryTree<T extends Comparable<T>> {
         }
         public T getData(){return data;}
     }
-
+    public BTNode getRoot(){
+        return root;
+    }
     public void add(T t){
         this.root = this.add(this.root,t);
     }
@@ -76,6 +75,50 @@ public class BinaryTree<T extends Comparable<T>> {
         }
     }
 
+    public String serialize() {
+        if(root==null) return null;
+        StringBuilder sb  = new StringBuilder();
+        Deque<BTNode> s = new ArrayDeque();
+        s.push(root);
+        while(!s.isEmpty()){
+            BTNode node = s.pop();
+            sb.append(node.data).append(",");
+            if(node.right!=null) {
+                s.push(node.right);
+            }
+            if(node.left!=null){
+                s.push(node.left);
+            }
+        }
+        return sb.substring(0,sb.length()-1);
+    }
+
+    // Decodes your encoded data to tree.
+    public BTNode deserialize(String data) {
+        if(data==null) return null;
+        String[] strs = data.split(",");
+        Queue<Integer> q = new LinkedList();
+        for(String str:strs){
+            q.offer(Integer.parseInt(str));
+        }
+        return buildTree(q);
+    }
+
+    private BTNode buildTree(Queue<Integer> q){
+        if(q.isEmpty())
+            return null;
+        BTNode<Integer> node = new BTNode(q.poll());
+        Queue<Integer> leftNodeQ = new LinkedList<>();
+        while(!q.isEmpty() && node.data>q.peek()){
+             leftNodeQ.offer(q.poll());
+        }
+        if(!leftNodeQ.isEmpty())
+            node.left = buildTree(leftNodeQ);
+        if(!q.isEmpty())
+            node.right = buildTree(q);
+        return node;
+    }
+
     /**
      * This is preOrder traversal of the tree
      * @return
@@ -96,7 +139,7 @@ public class BinaryTree<T extends Comparable<T>> {
                     stack.push(temp.left);
                 }
             }
-            return tree.toString();
+            return tree.toString().substring(0,tree.length()-1);
         }else{
             return String.valueOf(this.hashCode());
         }

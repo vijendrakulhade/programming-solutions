@@ -60,4 +60,20 @@ public class BinaryTreeTest {
         binaryTree.add(8);
         Assert.assertEquals(3,binaryTree.balancedHeight());
     }
+
+    @Test
+    public void testSerialize(){
+        binaryTree.add(2);
+        binaryTree.add(3);
+        binaryTree.add(1);
+        Assert.assertEquals("2,1,3",binaryTree.serialize());
+    }
+
+    @Test
+    public void testDeserialize(){
+        binaryTree.add(2);
+        binaryTree.add(3);
+        binaryTree.add(1);
+        Assert.assertEquals(binaryTree.getRoot(),binaryTree.deserialize(binaryTree.serialize()));
+    }
 }
