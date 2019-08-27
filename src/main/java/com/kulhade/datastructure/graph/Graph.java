@@ -48,6 +48,48 @@ public class Graph<T>{
 
     }
 
+    public Set<T> dfs(T t){
+        Vertex<T> start = new Vertex<>(t);
+        if(!adj.containsKey(start)){
+            throw new IllegalArgumentException("Element doesn't belong to the graph");
+        }
+        Set<T> visited = new LinkedHashSet<>();
+        Stack<Vertex<T>> stack = new Stack<>();
+
+        stack.push(start);
+        while(!stack.isEmpty()){
+            Vertex s = stack.pop();
+            if(!visited.contains((T)s.vertex)) {
+                visited.add((T) s.vertex);
+                for(Vertex v: this.fetchNeighbour((T) s.vertex)){
+                    stack.push(v);
+                }
+            }
+        }
+        return visited;
+    }
+
+    public Set<T> bfs(T t){
+        Vertex<T> start = new Vertex<>(t);
+        if(!adj.containsKey(start)){
+            throw new IllegalArgumentException("Element doesn't belong to the graph");
+        }
+        Set<T> visited = new LinkedHashSet<>();
+        Queue<Vertex<T>> q = new LinkedList<>();
+        q.add(start);
+        visited.add(t);
+        while(!q.isEmpty()){
+            Vertex v = q.poll();
+            for (Vertex u:this.fetchNeighbour((T)v.vertex)){
+                if(!visited.contains(u.vertex)){
+                    visited.add((T)u.vertex);
+                    q.add(u);
+                }
+            }
+        }
+        return visited;
+    }
+
     public List<Vertex<T>> fetchNeighbour(T t){
         return adj.get(new Vertex<>(t));
     }

@@ -23,4 +23,57 @@ public class PriorityQueuePrograms {
         }
         return nums;
     }
+
+    /**
+     * Merge k sorted arrays
+     */
+    class ArrayContainer implements Comparable{
+        private int[] arr;
+        private int index;
+        public ArrayContainer(int[] a,int index){
+            this.arr=a;
+            this.index=index;
+        }
+        @Override
+        public int compareTo(Object o) {
+            ArrayContainer a = (ArrayContainer)o;
+            return this.arr[this.index]-a.arr[a.index];
+        }
+
+        public int[] getArr() {
+            return arr;
+        }
+
+        public void setArr(int[] arr) {
+            this.arr = arr;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+    }
+    public int[] mergeKSortedArray(int[][] arrays){
+        if(arrays==null || arrays.length==0)
+            return new int[0];
+
+        PriorityQueue<ArrayContainer> q = new PriorityQueue<>();
+        int total= 0;
+        for(int[] a:arrays){
+            total +=a.length;
+            q.offer(new ArrayContainer(a,0));
+        }
+        int[] result = new int[total];
+        int i=0;
+        while(!q.isEmpty()){
+            ArrayContainer c = q.poll();
+            result[i++] = c.arr[c.index];
+            if(c.index < c.arr.length-1)
+                q.offer(new ArrayContainer(c.arr,c.index+1));
+        }
+        return result;
+    }
 }

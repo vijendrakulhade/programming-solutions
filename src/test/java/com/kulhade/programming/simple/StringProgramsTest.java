@@ -1,10 +1,8 @@
 package com.kulhade.programming.simple;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,11 +12,10 @@ import java.util.Set;
 /**
  * Created by vn05f93 on 3/11/18.
  */
-@RunWith(JUnit4.class)
 public class StringProgramsTest {
 
     static StringPrograms stringPrograms;
-    @BeforeClass
+    @BeforeAll
     public static void setUp(){
         stringPrograms = new StringPrograms();
     }
@@ -29,7 +26,7 @@ public class StringProgramsTest {
         Set<String> dic = new HashSet<>();
         dic.add("hot");dic.add("dot");dic.add("dog");dic.add("lot");dic.add("log");
         int actual = stringPrograms.wordLadderCount(start,end,dic);
-        Assert.assertEquals(5,actual);
+        Assertions.assertEquals(5,actual);
     }
 
     @Test
@@ -38,7 +35,7 @@ public class StringProgramsTest {
         Set<String> dic = new HashSet<>();
         dic.add("POON");dic.add("PLEE");dic.add("SAME");dic.add("POIE");dic.add("PLEA");dic.add("PLIE");dic.add("POIN");
         int actual = stringPrograms.wordLadderCount(start,end,dic);
-        Assert.assertEquals(7,actual);
+        Assertions.assertEquals(7,actual);
     }
     @Test
     public void testFormSenetence(){
@@ -48,8 +45,8 @@ public class StringProgramsTest {
         List<String> sentences  = stringPrograms.formSentence(words,dic);
         List<String> expected = new ArrayList<>();
         expected.add("cats and dog");expected.add("cat sand dog");
-        Assert.assertEquals(expected.size(),sentences.size());
-        Assert.assertEquals(expected,sentences);
+        Assertions.assertEquals(expected.size(),sentences.size());
+        Assertions.assertEquals(expected,sentences);
     }
 
     @Test
@@ -57,7 +54,7 @@ public class StringProgramsTest {
         String word = "mynameis";
         Set<String> dict = new HashSet<>();
         dict.add("my");dict.add("name");dict.add("is");
-        Assert.assertTrue(stringPrograms.isWordBreakable(word,dict));
+        Assertions.assertTrue(stringPrograms.isWordBreakable(word,dict));
     }
 
     @Test
@@ -65,20 +62,20 @@ public class StringProgramsTest {
         String word = "mynameisking";
         Set<String> dict = new HashSet<>();
         dict.add("my");dict.add("name");dict.add("is");
-        Assert.assertFalse(stringPrograms.isWordBreakable(word,dict));
+        Assertions.assertFalse(stringPrograms.isWordBreakable(word,dict));
     }
 
     @Test
     public void testLongestPalindrome(){
         String str = "ababcba";
         String palindrome = stringPrograms.longestPalindrome(str);
-        Assert.assertEquals("abcba",palindrome);
+        Assertions.assertEquals("abcba",palindrome);
     }
     @Test
     public void testLongestPalindrome_2(){
         String str = "ababcbaabcdcba";
         String palindrome = stringPrograms.longestPalindrome(str);
-        Assert.assertEquals("abcdcba",palindrome);
+        Assertions.assertEquals("abcdcba",palindrome);
     }
 
     @Test
@@ -86,7 +83,7 @@ public class StringProgramsTest {
         char[] arr = {' ',' '};
         char[] actual = stringPrograms.reverseWithSpace(arr);
         char[] expected = {' ',' '};
-        Assert.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
@@ -94,7 +91,7 @@ public class StringProgramsTest {
         char[] arr = {'p','e','r','f','a','c','t',' ','m','a','k','e','s',' ','p','r','a','c','t','i','c','e'};
         char[] actual = stringPrograms.reverseWithSpace(arr);
         char[] expected = {'p','r','a','c','t','i','c','e',' ','m','a','k','e','s',' ','p','e','r','f','a','c','t'};
-        Assert.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
@@ -102,36 +99,36 @@ public class StringProgramsTest {
         char[] arr = {'h','e','l','l','o'};
         char[] actual = stringPrograms.reverseWithSpace(arr);
         char[] expected = {'h','e','l','l','o'};
-        Assert.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected,actual);
     }
 
     @Test
     public void testLongestUniqueCharSubstring(){
         String s = "abcba";
         int actual = stringPrograms.longestUniqueCharSubstring(s);
-        Assert.assertEquals(3,actual);
+        Assertions.assertEquals(3,actual);
     }
 
     @Test
     public void testLongestUniqueCharSubstring_1(){
         String s = "obamacare";
         int actual = stringPrograms.longestUniqueCharSubstring(s);
-        Assert.assertEquals(4,actual);
+        Assertions.assertEquals(4,actual);
     }
 
     @Test
     public void testLongestCommonPrefix(){
         String[] strs = {"aaa","ab","abc"};
         String actual = stringPrograms.longestCommonPrefix(strs);
-        Assert.assertEquals("a",actual);
+        Assertions.assertEquals("a",actual);
     }
 
     @Test
     public void testBasic(){
         String s = "some";
-        Assert.assertEquals("ome",s.substring(1).intern());
+        Assertions.assertEquals("ome",s.substring(1).intern());
         String s1 = "something";
-        Assert.assertEquals("somethin",s1.substring(0,s1.length()-1).intern());
+        Assertions.assertEquals("somethin",s1.substring(0,s1.length()-1).intern());
     }
 
     @Test
@@ -145,7 +142,7 @@ public class StringProgramsTest {
         cur.add("aa");cur.add("b");
         expected.add(cur);
         List<List<String>> actual = stringPrograms.palindromePartitions(aab);
-        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
     }
 
     @Test
@@ -159,13 +156,13 @@ public class StringProgramsTest {
         cur.add("aa");cur.add("b");
         expected.add(cur);
         List<List<String>> actual = stringPrograms.palindromePartitions(aab);
-        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
     }
 
     @Test
     public void testIsMatch(){
         String s="aab", p="c*a*b";
-        Assert.assertTrue(stringPrograms.isMatch(s,p));
+        Assertions.assertTrue(stringPrograms.isMatch(s,p));
     }
 
     @Test

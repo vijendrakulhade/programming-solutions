@@ -1,19 +1,16 @@
 package com.kulhade.programming.simple;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-@RunWith(JUnit4.class)
 public class TwoDimensionalArrayProgramsTest {
 
     static TwoDimensionalArrayPrograms twoDimensionalArrayPrograms;
-    @BeforeClass
+    @BeforeAll
     public static void setup(){
         twoDimensionalArrayPrograms = new TwoDimensionalArrayPrograms();
     }
@@ -37,7 +34,7 @@ public class TwoDimensionalArrayProgramsTest {
         }
         List<Integer> expected = Arrays.asList(0,1,2,3,4,5,4,3,2,1,2,3);
         List<Integer> actual = twoDimensionalArrayPrograms.spiralPrint(matrix);
-        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
 
     }
 
@@ -50,7 +47,7 @@ public class TwoDimensionalArrayProgramsTest {
             }
         }
         int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
-        Assert.assertEquals(1,count);
+        Assertions.assertEquals(1,count);
     }
 
     @Test
@@ -63,7 +60,7 @@ public class TwoDimensionalArrayProgramsTest {
                 matrix[0][i]=0;
         }
         int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
-        Assert.assertEquals(2,count);
+        Assertions.assertEquals(2,count);
     }
 
     @Test
@@ -73,7 +70,7 @@ public class TwoDimensionalArrayProgramsTest {
         int[][] matrix = new int[1][1];
                 matrix[0][0]=1;
         int count = twoDimensionalArrayPrograms.numOfIsland(matrix);
-        Assert.assertEquals(1,count);
+        Assertions.assertEquals(1,count);
     }
 
     @Test

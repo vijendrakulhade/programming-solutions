@@ -1,21 +1,22 @@
 package com.kulhade.datastructure;
 
-import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-@RunWith(JUnit4.class)
 public class BinaryTreeTest {
 
     BinaryTree<Integer> binaryTree;
-    @Before
+    @BeforeAll
     public  void setUp(){
         binaryTree = new BinaryTree<Integer>();
     }
 
-    @After
+    @AfterAll
     public void tearDown() throws Exception {
     }
 
@@ -38,7 +39,7 @@ public class BinaryTreeTest {
         binaryTree.add(8);
         Integer[] expected = {1,5,8,2,3};
         List<Integer> actual = (List<Integer>)binaryTree.preOrder();
-        Assert.assertArrayEquals(expected,actual.toArray());
+        Assertions.assertArrayEquals(expected,actual.toArray());
     }
 
     @Test
@@ -48,7 +49,7 @@ public class BinaryTreeTest {
         binaryTree.add(5);
         binaryTree.add(2);
         binaryTree.add(8);
-        Assert.assertTrue(binaryTree.isBalanced());
+        Assertions.assertTrue(binaryTree.isBalanced());
     }
 
     @Test
@@ -58,7 +59,7 @@ public class BinaryTreeTest {
         binaryTree.add(5);
         binaryTree.add(2);
         binaryTree.add(8);
-        Assert.assertEquals(3,binaryTree.balancedHeight());
+        Assertions.assertEquals(3,binaryTree.balancedHeight());
     }
 
     @Test
@@ -66,7 +67,7 @@ public class BinaryTreeTest {
         binaryTree.add(2);
         binaryTree.add(3);
         binaryTree.add(1);
-        Assert.assertEquals("2,1,3",binaryTree.serialize());
+        Assertions.assertEquals("2,1,3",binaryTree.serialize());
     }
 
     @Test
@@ -74,6 +75,6 @@ public class BinaryTreeTest {
         binaryTree.add(2);
         binaryTree.add(3);
         binaryTree.add(1);
-        Assert.assertEquals(binaryTree.getRoot(),binaryTree.deserialize(binaryTree.serialize()));
+        Assertions.assertEquals(binaryTree.getRoot(),binaryTree.deserialize(binaryTree.serialize()));
     }
 }

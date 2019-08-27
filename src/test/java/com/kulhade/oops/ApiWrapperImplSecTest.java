@@ -2,17 +2,14 @@ package com.kulhade.oops;
 
 import com.kulhade.datastructure.BinaryTree;
 import com.kulhade.oops.impl.ApiWrapperImplSec;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-@RunWith(JUnit4.class)
 public class ApiWrapperImplSecTest {
 
     static ApiWrapper apiWrapper;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp(){
         apiWrapper = new ApiWrapperImplSec();
     }

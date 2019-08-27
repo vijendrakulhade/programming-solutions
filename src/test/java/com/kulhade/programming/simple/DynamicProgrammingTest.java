@@ -1,25 +1,22 @@
 package com.kulhade.programming.simple;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by vn05f93 on 10/7/17.
  */
-@RunWith(JUnit4.class)
 public class DynamicProgrammingTest {
 
     private static DynamicProgramming dynamicProgramming = null;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         dynamicProgramming = new DynamicProgramming();
     }
@@ -29,7 +26,7 @@ public class DynamicProgrammingTest {
     public void testFibonacciSeries() {
         int[] expected = {0, 1, 1, 2, 3};
         int[] series = dynamicProgramming.fibonacciSeries(5);
-        Assert.assertArrayEquals(expected, series);
+        Assertions.assertArrayEquals(expected, series);
 
     }
 
@@ -38,7 +35,7 @@ public class DynamicProgrammingTest {
         int[] coins = {25,10,5,1};
         int money = 27;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(ways,13);
+        Assertions.assertEquals(ways,13);
     }
 
     @Test
@@ -46,7 +43,7 @@ public class DynamicProgrammingTest {
         int[] coins = {5,2,1};
         int money = 7;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(6,ways);
+        Assertions.assertEquals(6,ways);
     }
 
     @Test
@@ -54,7 +51,7 @@ public class DynamicProgrammingTest {
         int[] coins = {3,2,1};
         int money = 4;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(4,ways);
+        Assertions.assertEquals(4,ways);
     }
 
     @Test
@@ -62,7 +59,7 @@ public class DynamicProgrammingTest {
         int[] coins = {2,3,6};
         int money = 7;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(1,ways);
+        Assertions.assertEquals(1,ways);
     }
 
     @Test
@@ -70,7 +67,7 @@ public class DynamicProgrammingTest {
         int[] coins = {25,10,5,1};
         int money = 27;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(ways,13);
+        Assertions.assertEquals(ways,13);
     }
 
     @Test
@@ -78,7 +75,7 @@ public class DynamicProgrammingTest {
         int[] coins = {1,2,5};
         int money = 5;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(4,ways);
+        Assertions.assertEquals(4,ways);
     }
 
     @Test
@@ -86,7 +83,7 @@ public class DynamicProgrammingTest {
         int[] coins = {3,2,1};
         int money = 4;
         int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assert.assertEquals(4,ways);
+        Assertions.assertEquals(4,ways);
     }
 
     @Test
@@ -94,7 +91,7 @@ public class DynamicProgrammingTest {
         int[] coins = {5,2,1};
         int money = 7;
         List<List<Integer>> actual =  dynamicProgramming.showMoneyChangeCombinations(coins,money);
-        Assert.assertEquals(13,actual.size());
+        Assertions.assertEquals(13,actual.size());
     }
 
     @Test
@@ -103,7 +100,7 @@ public class DynamicProgrammingTest {
         int money = 7;
         List<List<Integer>> actual =  dynamicProgramming.findAllPossibleChangeForMoney(coins,money);
         List<Integer> curr = Arrays.asList(2,2,3);
-        Assert.assertArrayEquals(curr.toArray(),actual.get(0).toArray());
+        Assertions.assertArrayEquals(curr.toArray(),actual.get(0).toArray());
     }
     @Test
     public void testFindAllPossibleChangeForMoney_1(){
@@ -117,34 +114,34 @@ public class DynamicProgrammingTest {
         expected.add(Arrays.asList(1,1,5));
         expected.add(Arrays.asList(1,2,2,2));
         expected.add(Arrays.asList(2,5));
-        Assert.assertArrayEquals(expected.toArray(),actual.toArray());
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
     }
 
     @Test
     public void testLongestCommonSubsequence(){
         String str1="AGGTXB"; String str2="GTXAYB";
         int num = dynamicProgramming.longestCommonSubsequence(str1,str2);
-        Assert.assertEquals(4,num);
+        Assertions.assertEquals(4,num);
     }
 
     @Test
     public void testLongestCommonSubsequenceIter(){
         String str1="AGGTXB"; String str2="GTXAYB";
         int num = dynamicProgramming.longestCommonSubsequenceIterative(str1,str2);
-        Assert.assertEquals(4,num);
+        Assertions.assertEquals(4,num);
     }
     @Test
     public void testDistinctCommonSubsequence(){
         String str1="rabbbit"; String str2="rabbit";
         int num = dynamicProgramming.distinctCommonSubSequence(str1,str2);
-        Assert.assertEquals(3,num);
+        Assertions.assertEquals(3,num);
     }
 
     @Test
     public void testDistinctCommonSubsequence_1(){
         String str1="rabbbit"; String str2="rabbit";
         int num = dynamicProgramming.distinctCommonSubSequenceIterative(str1,str2);
-        Assert.assertEquals(3,num);
+        Assertions.assertEquals(3,num);
     }
 
     @Test
@@ -165,52 +162,52 @@ public class DynamicProgrammingTest {
     public void testCountDist(){
         String str = "abcd"; int k=3;
         int out = dynamicProgramming.countkDist(str,k);
-        Assert.assertEquals(out,2);
+        Assertions.assertEquals(out,2);
     }
 
     @Test
     public void testMinEditDistance(){
         int out  = dynamicProgramming.minEditDistance("saturday","sunday");
-        Assert.assertEquals(out,3);
+        Assertions.assertEquals(out,3);
     }
 
     @Test
     public void testMinEditDistanceIter(){
         int out  = dynamicProgramming.minEditDistanceIterative("saturday","sunday");
-        Assert.assertEquals(3,out);
+        Assertions.assertEquals(3,out);
     }
 
     @Test
     public void testMinEditDistance_2(){
         int out  = dynamicProgramming.minEditDistance("rabbbit","rabbit");
-        Assert.assertEquals(1,out);
+        Assertions.assertEquals(1,out);
     }
 
     @Test
     public void testMinEditDistanceABC(){
         int out  = dynamicProgramming.minEditDistance("ABC","BCA");
-        Assert.assertEquals(out,2);
+        Assertions.assertEquals(out,2);
     }
 
     @Test
     public void testJava(){
         String str1="";
-        Assert.assertEquals(0,str1.length());
+        Assertions.assertEquals(0,str1.length());
     }
 
     @Test
     public void testSuper_reduced_string(){
-        Assert.assertSame("abcd",dynamicProgramming.super_reduced_string("aaabccddd").intern());
+        Assertions.assertSame("abcd",dynamicProgramming.super_reduced_string("aaabccddd").intern());
     }
 
     @Test
     public void  testIsPatternMatch(){
-        Assert.assertTrue(dynamicProgramming.isPatternMatch("aaa","a*"));
+        Assertions.assertTrue(dynamicProgramming.isPatternMatch("aaa","a*"));
     }
 
     @Test
     public void  testIsPatternMatch_Neg(){
-        Assert.assertFalse(dynamicProgramming.isPatternMatch("aaa","."));
+        Assertions.assertFalse(dynamicProgramming.isPatternMatch("aaa","."));
     }
 
 }

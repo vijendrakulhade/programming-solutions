@@ -1,11 +1,9 @@
 package com.kulhade.programming.simple;
 
 import com.kulhade.programming.entity.Interval;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,12 +15,11 @@ import java.util.Map;
 /**
  * Created by vn05f93 on 7/29/17.
  */
-@RunWith(JUnit4.class)
 public class SimpleProgramsTest {
 
     private static SimplePrograms simplePrograms=null;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp(){
         simplePrograms = new SimplePrograms();
     }
@@ -31,14 +28,14 @@ public class SimpleProgramsTest {
     public void testWordCount(){
         String testStr ="a   ab abc ";
         long actual=simplePrograms.wordCount(testStr);
-        Assert.assertEquals(3,actual);
+        Assertions.assertEquals(3,actual);
     }
 
     @Test
     public void testGetCharacterCount(){
         String testStr="aaaa bb";
         long actual=simplePrograms.getCharacterCount(testStr,'b');
-        Assert.assertEquals(2,actual);
+        Assertions.assertEquals(2,actual);
     }
 
     @Test
@@ -57,14 +54,14 @@ public class SimpleProgramsTest {
         for(Map.Entry<String,String> entry:entries){
             lastNames.add(entry.getValue());
         }
-        Assert.assertArrayEquals(expected,lastNames.toArray());
+        Assertions.assertArrayEquals(expected,lastNames.toArray());
     }
 
     @Test
     public void testSortWithLastNameAppearance() throws IOException{
         File inputFile = new File("src/test/resources/name.txt");
         Map<String,Integer> countMap = simplePrograms.sortWithLastNameAppearance(inputFile);
-        Assert.assertEquals(2,countMap.get("Mayer").longValue());
+        Assertions.assertEquals(2,countMap.get("Mayer").longValue());
 
 
     }
@@ -79,7 +76,7 @@ public class SimpleProgramsTest {
         simplePrograms.mergeIntervalList(intervals);
         Interval expectedChange = new Interval(1,6);
         Interval actual = (Interval)intervals.toArray()[0];
-        Assert.assertEquals(expectedChange.getEnd(),actual.getEnd());
+        Assertions.assertEquals(expectedChange.getEnd(),actual.getEnd());
     }
 
     @Test
@@ -93,7 +90,7 @@ public class SimpleProgramsTest {
         simplePrograms.mergeIntervalList(intervals);
         Interval expectedChange = new Interval(1,11);
         Interval actual = (Interval)intervals.toArray()[0];
-        Assert.assertEquals(expectedChange.getEnd(),actual.getEnd());
+        Assertions.assertEquals(expectedChange.getEnd(),actual.getEnd());
     }
 
     @Test
@@ -105,7 +102,7 @@ public class SimpleProgramsTest {
         simplePrograms.mergeIntervalList(intervals);
         Interval expectedChange = new Interval(0,5);
         Interval actual = (Interval)intervals.toArray()[0];
-        Assert.assertEquals(expectedChange.getEnd(),actual.getEnd());
+        Assertions.assertEquals(expectedChange.getEnd(),actual.getEnd());
     }
     //Need to manually verify the values
     @Test
@@ -118,7 +115,7 @@ public class SimpleProgramsTest {
         List<Interval<Integer>> expectedIntervals = new ArrayList<>();
         expectedIntervals.add(new Interval<>(1,5));
         expectedIntervals.add(new Interval<>(6,9));
-        Assert.assertEquals(expectedIntervals.size(),intervals.size());
+        Assertions.assertEquals(expectedIntervals.size(),intervals.size());
     }
 
     //Need to manually verify the values
@@ -136,7 +133,7 @@ public class SimpleProgramsTest {
         expectedIntervals.add(new Interval<>(1,2));
         expectedIntervals.add(new Interval<>(3,10));
         expectedIntervals.add(new Interval<>(12,16));
-        Assert.assertEquals(expectedIntervals.size(),intervals.size());
+        Assertions.assertEquals(expectedIntervals.size(),intervals.size());
     }
 
 

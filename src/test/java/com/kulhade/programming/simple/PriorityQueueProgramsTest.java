@@ -1,17 +1,14 @@
 package com.kulhade.programming.simple;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-@RunWith(JUnit4.class)
 public class PriorityQueueProgramsTest {
 
     private static PriorityQueuePrograms programs = null;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         programs = new PriorityQueuePrograms();
     }
@@ -20,6 +17,13 @@ public class PriorityQueueProgramsTest {
         int[] nums = {1,4,2,5,3,6,0};
         int[] actual = programs.heapSort(nums);
         int[] expected = {0,1,2,3,4,5,6};
-        Assert.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void testMergedKSortedArray(){
+        int[][] arrays={{1,3,5},{2,6,9},{1,2,45,67,78}};
+        int[] expected = {1,1,2,2,3,5,6,9,45,67,78};
+        Assertions.assertArrayEquals(expected,programs.mergeKSortedArray(arrays));
     }
 }

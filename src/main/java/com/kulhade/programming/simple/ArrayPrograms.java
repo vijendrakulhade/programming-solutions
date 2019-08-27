@@ -233,7 +233,7 @@ public class ArrayPrograms {
      * @param k
      * @return
      */
-    public int[] rotate(int[] nums,int k){
+    public int[] rotate(int[] nums,int k) throws IllegalArgumentException{
         if(nums==null || k<0){
             throw new IllegalArgumentException("Illegal Arguments");
         }
