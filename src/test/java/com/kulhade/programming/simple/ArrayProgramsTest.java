@@ -302,4 +302,13 @@ public class ArrayProgramsTest {
         int[] expected = {1, 0, 1, 0, 0, 0, 0, 0};
         Assertions.assertArrayEquals(actual, expected);
     }
+
+    @Test
+    public void testStockBuySell(){
+        int[] prices = {23,13,33,45,56,14,30,34,50};
+        List<ArrayPrograms.Pair> expected = new ArrayList<>();
+        expected.add(new ArrayPrograms.Pair<>(13,56));
+        expected.add(new ArrayPrograms.Pair<>(14,50));
+        Assertions.assertEquals(expected.size(),arrayPrograms.stockBuySell(prices).size());
+    }
 }

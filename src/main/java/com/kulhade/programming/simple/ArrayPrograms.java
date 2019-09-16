@@ -1,5 +1,6 @@
 package com.kulhade.programming.simple;
 
+
 import java.util.*;
 
 /**
@@ -586,5 +587,40 @@ public class ArrayPrograms {
         }
         return result;
    }
+
+    /**
+     * Stock buy sell when multiple txn allowed
+     * get all the price pairs
+     */
+    public static class Pair<U,V>{
+        U a;
+        V b;
+        public Pair(U i,V j){
+            a=i;
+            b=j;
+        }
+    }
+    public List<Pair> stockBuySell(int[] prices){
+        if(prices==null || prices.length==0)
+            return new ArrayList<>();
+
+        int localMin = Integer.MAX_VALUE;
+        int localMax = Integer.MIN_VALUE;
+
+        List<Pair> result = new ArrayList<>();
+        for(int i = 0; i<prices.length;i++){
+            if(prices[i]>localMax){
+                localMax = prices[i];
+            }else if(prices[i]<localMin){
+                localMin = prices[i];
+            }else{
+                result.add(new Pair(localMin,localMax));
+                localMin = prices[i];
+                localMax = Integer.MIN_VALUE;
+            }
+        }
+        result.add(new Pair(localMin,localMax));
+        return result;
+    }
 
 }
