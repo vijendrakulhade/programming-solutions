@@ -21,4 +21,10 @@ public class BitManipulationTest {
     public void test_sum(){
         Assertions.assertEquals(5,o.getSum(2,3));
     }
+
+    @Test
+    public void test_nonRepeating(){
+        int[] nums = {1,1,2,2,5,3,3,4,4};
+        Assertions.assertEquals(5,o.getNonRepeating(nums));
+    }
 }

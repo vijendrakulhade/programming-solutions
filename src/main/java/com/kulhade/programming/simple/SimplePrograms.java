@@ -146,4 +146,34 @@ public class SimplePrograms<T extends Comparable<T>> {
             return second;
         }
     }
+
+    /**
+     * Flip Count
+     * @param inputString
+     * @return
+     */
+    public int flipCountReturn(String inputString) {
+        if (null == inputString) {
+            return 0;
+        }
+
+        int flipC = 0;
+        int yCount = 0;
+        int xCount = 0;
+
+        for (int i = 0; i < inputString.length(); i++) {
+            if (inputString.charAt(i) == 'x') {
+                if (yCount > 0) {
+                    flipC = flipC + 1;
+                } else {
+                    continue;
+                }
+            } else {
+                if ((i < inputString.length() - 2 && inputString.charAt(i + 1) != 'y') || (i > 0 && inputString.charAt(i - 1) != 'y')) {
+                    yCount = yCount + 1;
+                }
+            }
+        }
+        return Math.min(flipC,yCount);
+    }
 }

@@ -93,6 +93,10 @@ public class DynamicProgramming {
         return 0;
     }
 
+    /**
+     * Taking first index from Array
+     *
+     */
     private int makeChange(int[] coins,int money,int index,Map<String,Integer> memo){
         if(money == 0){
             return 1;
@@ -112,6 +116,23 @@ public class DynamicProgramming {
         }
         memo.put(key,ways);
         return memo.get(key);
+    }
+
+    /**
+     * coins = {2,3,5,6} & Sum=10
+     * @param coins
+     * @param i length of coins array taking last index
+     * @param sum
+     * @return
+     */
+    private int makeChange(int[] coins, int i,int sum){
+        if(sum==0) return 1;
+        if(i==0) return 0;
+        int ways = makeChange(coins,i-1,sum);
+        if(coins[i-1]<=sum){
+            ways+=makeChange(coins,i,sum-coins[i-1]);
+        }
+        return ways;
     }
 
     public List<List<Integer>> findAllPossibleChangeForMoney(int[] coins,int money){

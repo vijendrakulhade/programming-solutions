@@ -136,5 +136,8 @@ public class SimpleProgramsTest {
         Assertions.assertEquals(expectedIntervals.size(),intervals.size());
     }
 
-
+    @Test
+    public void testFlipCount(){
+        System.out.print(simplePrograms.flipCountReturn("xxyxxyyyxxxyy"));
+    }
 }

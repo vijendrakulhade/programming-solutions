@@ -599,6 +599,12 @@ public class ArrayPrograms {
             a=i;
             b=j;
         }
+        public U getA(){
+            return a;
+        }
+        public V getB(){
+            return b;
+        }
     }
     public List<Pair> stockBuySell(int[] prices){
         if(prices==null || prices.length==0)

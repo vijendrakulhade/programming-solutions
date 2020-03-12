@@ -19,4 +19,19 @@ public class BitManipulation {
         int d = (a&b)<<1;
         return getSum(c,d);
     }
+
+    /**
+     * Find Non repeating Single number, where other numbers are present exactly twice in the array
+     */
+    public int getNonRepeating(int[] nums){
+        if(nums==null || nums.length==0) return -1;
+        int a = nums[0];
+        for(int i=1;i<nums.length;i++){
+            a = a ^ nums[i];
+        }
+
+        return a;
+    }
+
+
 }
