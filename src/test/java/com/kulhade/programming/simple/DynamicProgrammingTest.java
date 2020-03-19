@@ -1,6 +1,7 @@
 package com.kulhade.programming.simple;
 
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -209,5 +210,39 @@ public class DynamicProgrammingTest {
     public void  testIsPatternMatch_Neg(){
         Assertions.assertFalse(dynamicProgramming.isPatternMatch("aaa","."));
     }
+
+    @Test
+    public void testLongestIncreasingSubsequence(){
+        int[] arr = {3,4,2,8,10,5,1};
+        Assertions.assertEquals(4,dynamicProgramming.lis(arr));
+    }
+    @Test
+    public void testMakeCut_0(){
+        Assertions.assertEquals(5,dynamicProgramming.makeCut(5,2,1,5));
+    }
+    @Test
+    public void testMakeCut_1(){
+        Assertions.assertEquals(2,dynamicProgramming.makeCut(23,11,12,13));
+    }
+
+    @Test
+    public void testMakeCutMemo_0(){
+        Assertions.assertEquals(5,dynamicProgramming.makeCutMemo(5,2,1,5));
+    }
+    @Test
+    public void testMakeCutMemo_1(){
+        Assertions.assertEquals(2,dynamicProgramming.makeCutMemo(23,11,12,13));
+    }
+
+    @Test
+    public void testMakeCutTabulation_0(){
+        Assertions.assertEquals(5,dynamicProgramming.makeCutTabulation(5,2,1,5));
+    }
+    @Test
+    public void testMakeCutTabulation_1(){
+        Assertions.assertEquals(2,dynamicProgramming.makeCutTabulation(23,11,12,13));
+    }
+
+
 
 }

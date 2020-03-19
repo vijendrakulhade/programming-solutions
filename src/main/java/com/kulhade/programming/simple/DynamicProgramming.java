@@ -490,5 +490,103 @@ public class DynamicProgramming {
             System.out.println();
         }
     }
+
+    /**
+     * Longest Increasing Subsequence length
+     * {3,4,2,8,10,5,1} --> {3,4,8,10} -- 4
+     */
+    public int lis(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        List<Integer> lis = new ArrayList<>();
+        int n = arr.length;
+        lis.add(arr[0]);
+        for(int i=1,lis_i=0;i<n;i++){
+            if(arr[i]>lis.get(lis_i)){
+                lis.add(arr[i]);
+            }else{
+                int pos  = getPosition(arr,arr[i],0,i);
+                lis.set(pos,arr[i]);
+            }
+            lis_i = lis.size()-1;
+        }
+        return lis.size();
+    }
+
+    private int getPosition(int[] arr,int x, int l, int r){
+        if(l>r) return 0;
+        while(r>l){
+            int m = l+(r-l)/2;
+            if(arr[m]>=x){
+                 r=m;
+            }else{
+                l=m+1;
+            }
+        }
+        return r;
+    }
+
+    /**
+     * Get Max cut of a Rod
+     * Given Rod of size m and probable cuts a,b,c.
+     * Find out the max cut we can get.
+     */
+    public int makeCut(int m,int a,int b,int c){
+        if(m<0) return -1;
+        if(m==0) return 0;
+        int res = Math.max(Math.max(makeCut(m-a,a,b,c),makeCut(m-b,a,b,c)),makeCut(m-c,a,b,c));
+        if(res!=-1)
+            return 1+res;
+        return res;
+    }
+
+    /**
+     * Make Max cur memoization
+     */
+    public int makeCutMemo(int m,int a,int b,int c){
+        int[] memo = new int[m+1];
+        if(m<0) return -1;
+        if(m==0){
+            memo[m] = 0;
+            return memo[m];
+        }
+        return makeCutMemo(m,a,b,c,memo);
+    }
+    private int makeCutMemo(int m,int a,int b,int c,int[] memo){
+        if(m<0) return -1;
+        if(m==0) {
+            memo[m]=0;
+            return memo[m];
+        }
+        memo[m] = Math.max(Math.max(makeCutMemo(m-a,a,b,c,memo),makeCutMemo(m-b,a,b,c,memo)),makeCutMemo(m-c,a,b,c,memo));
+        if(memo[m]!=-1) {
+            memo[m] = 1+memo[m];
+        }
+        return memo[m];
+    }
+
+    /**
+     * Make max cut tabulation
+     */
+    public int makeCutTabulation(int m, int a,int b,int c){
+        int[] memo = new int[m+1];
+        if(m<0) return -1;
+        memo[0] = 0;
+        for(int i=1;i<=m;i++){
+            memo[i]=-1;
+            if(i-a>=0){
+                memo[i] = Math.max(memo[i],memo[i-a]);
+            }
+            if(i-b>=0){
+                memo[i] = Math.max(memo[i],memo[i-b]);
+            }
+            if(i-c>=0){
+                memo[i] = Math.max(memo[i],memo[i-c]);
+            }
+            if(memo[i]!=-1){
+                memo[i]++;
+            }
+        }
+        return memo[m];
+    }
 }
 
