@@ -588,5 +588,75 @@ public class DynamicProgramming {
         }
         return memo[m];
     }
+
+    /**
+     * Min Coins required to make a sum
+     * Eg {25,10,5} Sum 30
+     * o/p 2 as required coins are {25,5}
+     */
+    public int minCoins(int[] coins,int sum){
+        if(coins==null || coins.length==0)
+            return 0;
+        // Base case
+        if(sum==0) return 0;
+        int res = Integer.MAX_VALUE;
+        for(int i=0;i<coins.length;i++){
+            if(coins[i]<=sum){
+                int sub_res = minCoins(coins,sum-coins[i]);
+                if(sub_res!=Integer.MAX_VALUE){
+                    res = Math.min(res,1+sub_res);
+                }
+            }
+        }
+        return res;
+    }
+
+    private int minCoins(int[] coins,int sum,int[] memo){
+        if(sum==0){
+            memo[sum]=0;
+            return memo[sum];
+        }
+        if(memo[sum]!=Integer.MAX_VALUE)
+            return memo[sum];
+        for(int i=0;i<coins.length;i++){
+            if(coins[i]<=sum){
+                memo[sum-coins[i]] = Integer.MAX_VALUE;
+                int sub_res = minCoins(coins,sum-coins[i],memo);
+                if(sub_res!=Integer.MAX_VALUE){
+                    memo[sum] = Math.min(memo[sum],1+sub_res);
+                }
+            }
+        }
+        return memo[sum];
+    }
+
+    public int minCoinsMemo(int[] coins,int sum){
+        if(coins==null || coins.length==0)
+                return 0;
+        int[] memo = new int[sum+1];
+        memo[sum]=Integer.MAX_VALUE;
+        return minCoins(coins,sum,memo);
+    }
+
+    public int minCoinsTabulation(int[] coins,int sum){
+        if(coins== null || coins.length==0){
+            return 0;
+        }
+        int[] memo = new int[sum+1];
+        for(int i=0;i<sum+1;i++){
+            if(i==0){
+                memo[i]=0;
+                continue;
+            }
+            memo[i]=Integer.MAX_VALUE;
+            for(int j=0;j<coins.length;j++){
+                if(coins[j]<=i){
+                    memo[i] = Math.min(memo[i],1+memo[i-coins[j]]);
+                }
+            }
+        }
+        return memo[sum];
+    }
+
 }
 

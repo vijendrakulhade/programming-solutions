@@ -243,6 +243,20 @@ public class DynamicProgrammingTest {
         Assertions.assertEquals(2,dynamicProgramming.makeCutTabulation(23,11,12,13));
     }
 
+    @Test
+    public void testMinCoinSimpleRec(){
+        int[] coins = {25,10,5};
+        Assertions.assertEquals(2,dynamicProgramming.minCoins(coins,30));
+    }
 
-
+    @Test
+    public void testMinCoinMemo(){
+        int[] coins = {25,10,5};
+        Assertions.assertEquals(2,dynamicProgramming.minCoinsMemo(coins,30));
+    }
+    @Test
+    public void testMinCoinsTabulation(){
+        int[] coins = {25,10,5};
+        Assertions.assertEquals(2,dynamicProgramming.minCoinsTabulation(coins,30));
+    }
 }
