@@ -490,7 +490,27 @@ public class DynamicProgramming {
             System.out.println();
         }
     }
-
+    /**
+     * Longest Increasing Subsequence length O(n^2)
+     */
+    public int lisOn(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[] lis = new int[arr.length];
+        lis[0]=1;
+        for(int i=1;i<arr.length;i++){
+            lis[i]=1;
+            for(int j=0;j<i;j++){
+                if(arr[i]>arr[j]){
+                    lis[i] = Math.max(lis[i],lis[j]+1);
+                }
+            }
+        }
+        int res = Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
+            res = Math.max(res,lis[i]);
+        }
+        return res;
+    }
     /**
      * Longest Increasing Subsequence length
      * {3,4,2,8,10,5,1} --> {3,4,8,10} -- 4

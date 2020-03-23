@@ -5,6 +5,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -167,6 +168,30 @@ public class DynamicProgrammingTest {
     }
 
     @Test
+    public void testLis(){
+        int[] arr = {-2,-1};
+        Assertions.assertEquals(2,dynamicProgramming.lis(arr));
+    }
+
+    @Test
+    public void testLis_0(){
+        int[] arr = {-2,-1};
+        Assertions.assertEquals(2,dynamicProgramming.lisOn(arr));
+    }
+
+    @Test
+    public void testLis_1(){
+        int[] arr = {-1,-2,-3,-4,-5,-6};
+        Assertions.assertEquals(1,dynamicProgramming.lisOn(arr));
+    }
+
+    @Test
+    public void testLis_2(){
+        int[] arr = {10,9,2,5,3,7,101,18};
+        Assertions.assertEquals(4,dynamicProgramming.lisOn(arr));
+    }
+
+    @Test
     public void testMinEditDistance(){
         int out  = dynamicProgramming.minEditDistance("saturday","sunday");
         Assertions.assertEquals(out,3);
@@ -319,6 +344,24 @@ public class DynamicProgrammingTest {
     public void testPickPointTabulation(){
         int[] arr={25,5,4,6};
         Assertions.assertEquals(30,dynamicProgramming.pickPointTabulation(arr));
+    }
+
+    @Test
+    public void testPickPointRex_1(){
+        int[] arr={20,5,4,6,8,3};
+        Assertions.assertEquals(32,dynamicProgramming.pickPointRec(arr,0,arr.length-1));
+    }
+
+    @Test
+    public void testPickPointMemo_1(){
+        int[] arr={20,5,4,6,8,3};
+        Assertions.assertEquals(32,dynamicProgramming.pickPointMemo(arr));
+    }
+
+    @Test
+    public void testPickPointTabulation_1(){
+        int[] arr={20,5,4,6,8,3};
+        Assertions.assertEquals(32,dynamicProgramming.pickPointTabulation(arr));
     }
 
 }
