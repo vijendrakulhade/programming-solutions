@@ -259,4 +259,66 @@ public class DynamicProgrammingTest {
         int[] coins = {25,10,5};
         Assertions.assertEquals(2,dynamicProgramming.minCoinsTabulation(coins,30));
     }
+
+    @Test
+    public void testMinJumpRec_0(){
+        int[] arr = {3,4,2,1,2,1};
+        Assertions.assertEquals(2,dynamicProgramming.minJump(arr,0));
+    }
+    @Test
+    public void testMinJumpRec_1(){
+        int[] arr = {3,0,0,1,2,1};
+        Assertions.assertEquals(3,dynamicProgramming.minJump(arr,0));
+    }
+
+    @Test
+    public void testMinJumpTabulation_0(){
+        int[] arr = {3,4,2,1,2,1};
+        Assertions.assertEquals(2,dynamicProgramming.minJumpTabulation(arr));
+    }
+    @Test
+    public void testMinJumpTabulation_1(){
+        int[] arr = {3,0,0,1,2,1};
+        Assertions.assertEquals(3,dynamicProgramming.minJumpTabulation(arr));
+    }
+
+    @Test
+    public void testKnapsackRec(){
+        int[] v = {1,2,10,12,4};
+        int[] w = {1,1,12,4,8};
+        Assertions.assertEquals(19,dynamicProgramming.knapsackRec(v,w,15,5));
+    }
+
+    @Test
+    public void testKnapsackMemo(){
+        int[] v = {1,2,10,12,4};
+        int[] w = {1,1,12,4,8};
+        Assertions.assertEquals(19,dynamicProgramming.knapsackMemo(v,w,15,5));
+    }
+
+    @Test
+    public void testKnapsackTabulation(){
+        int[] v = {1,2,10,12,4};
+        int[] w = {1,1,12,4,8};
+        Assertions.assertEquals(19,dynamicProgramming.knapsackTabulation(v,w,15,5));
+    }
+
+    @Test
+    public void testPickPointRex(){
+        int[] arr={25,5,4,6};
+        Assertions.assertEquals(30,dynamicProgramming.pickPointRec(arr,0,3));
+    }
+
+    @Test
+    public void testPickPointMemo(){
+        int[] arr={25,5,4,6};
+        Assertions.assertEquals(30,dynamicProgramming.pickPointMemo(arr));
+    }
+
+    @Test
+    public void testPickPointTabulation(){
+        int[] arr={25,5,4,6};
+        Assertions.assertEquals(30,dynamicProgramming.pickPointTabulation(arr));
+    }
+
 }

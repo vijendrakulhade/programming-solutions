@@ -658,5 +658,180 @@ public class DynamicProgramming {
         return memo[sum];
     }
 
+    /**
+     * Minimum Jump required to reach to the end
+     * Eg {3,4,2,1,2,1} o/p 2 (3 to 4 to last ie 1)
+     */
+    public int minJump(int[] arr,int idx){
+        if(arr==null || arr.length==0) return 0;
+        if(idx== arr.length-1) return 0;
+        int jump = Integer.MAX_VALUE;
+        int allowedLastIdx = idx+arr[idx];
+        for(int i=idx+1;i<=allowedLastIdx;i++){
+            if(i>arr.length-1) continue;
+            int temp = minJump(arr,i);
+            if(temp!=Integer.MAX_VALUE) //Check for MAX_VALUE because +1 will make it -ve and it will count as min than
+                jump = Math.min(jump,temp+1);
+        }
+        return jump;
+    }
+
+    public int minJumpMemo(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[] memo = new int[arr.length+1];
+        for(int i=0;i<arr.length;i++) memo[i]=Integer.MAX_VALUE;
+        return minJump(arr,0,memo);
+    }
+
+    private int minJump(int[] arr,int idx,int[] memo){
+        if(arr==null || arr.length==0) return 0;
+        if(idx== arr.length-1) {
+            memo[idx] = 0;
+            return memo[idx];
+        }
+        if(memo[idx]!=Integer.MAX_VALUE) return memo[idx];
+        int allowedLastIdx = idx+arr[idx];
+        for(int i=idx+1;i<=allowedLastIdx;i++){
+            if(i>arr.length-1) continue;
+            int temp = minJump(arr,i,memo);
+            if(temp!=Integer.MAX_VALUE) {//Check for MAX_VALUE because +1 will make it -ve and it will count as min than
+                memo[idx] = Math.min(memo[idx], temp + 1);
+            }
+        }
+        return memo[idx];
+    }
+
+    public int minJumpTabulation(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[] dp = new int[arr.length+1];
+        dp[arr.length-1]=0;
+        for(int i=arr.length-2;i>=0;i--){
+            dp[i]=Integer.MAX_VALUE;
+            for(int j=i+arr[i];j>i;j--){
+                if(j>arr.length-1) continue;
+                if(dp[j]!=Integer.MAX_VALUE)
+                    dp[i] = Math.min(dp[i],dp[j]+1);
+            }
+        }
+        return dp[0];
+
+    }
+
+    /**
+     * 0-1 KnapSack
+     * Get Max Value for given weight
+     * Eg V={1,2,10,12,4} W={1,1,12,4,8} GW=15
+     * Ans 19
+     */
+    public int knapsackRec(int[] v,int[] w,int gw,int n){
+        if(v==null || w==null || v.length==0 || w.length==0) return 0;
+        if(v.length!=w.length) throw new IllegalArgumentException("Value and Weight arrays length should be same");
+        if(n==0) return 0;
+        if(gw==0) return 0;
+        if(gw<0) return Integer.MIN_VALUE;
+        if(w[n-1]>gw){
+            return knapsackRec(v,w,gw,n-1);
+        }else{
+            return Math.max(knapsackRec(v,w,gw,n-1),v[n-1]+knapsackRec(v,w,gw-w[n-1],n-1));
+        }
+    }
+    public int knapsackMemo(int[] v,int[] w,int gw,int n){
+        if(v==null || w==null || v.length==0 || w.length==0) return 0;
+        if(v.length!=w.length) throw new IllegalArgumentException("Value and Weight arrays length should be same");
+        int[][] memo = new int[n+1][gw+1];
+        for(int i=1;i<n+1;i++){
+            for(int j=1;j<gw+1;j++){
+                memo[i][j]=Integer.MIN_VALUE;
+            }
+        }
+        return knapsack(v,w,gw,n,memo);
+    }
+
+    private int knapsack(int[] v,int[] w,int gw,int n,int[][] memo){
+
+        if(n==0) return memo[n][gw]=0;
+        if(gw==0) return memo[n][gw]=0;
+
+        if(gw<0) return Integer.MIN_VALUE;
+        if(memo[n][gw]!=Integer.MIN_VALUE){
+            return memo[n][gw];
+        }
+        if(w[n-1]>gw){
+            memo[n][gw] = knapsack(v,w,gw,n-1,memo);
+        }else{
+            memo[n][gw] = Math.max(knapsack(v,w,gw,n-1,memo),v[n-1]+knapsack(v,w,gw-w[n-1],n-1,memo));
+        }
+        return memo[n][gw];
+    }
+
+    public int knapsackTabulation(int[] v,int[] w,int gw,int n){
+        if(v==null || w==null || v.length==0 || w.length==0) return 0;
+        if(n==0 || gw==0) return 0;
+        int[][] memo = new int[n+1][gw+1];
+        for(int i=0;i<n+1;i++){
+            for(int j=0;j<gw+1;j++){
+                if(i==0 || j==0){
+                    memo[i][j] = 0;
+                    continue;
+                }
+                if(w[i-1]>j){
+                    memo[i][j] = memo[i-1][j];
+                }else{
+                    memo[i][j] = Math.max( memo[i-1][j],v[i-1]+memo[i-1][j-w[i-1]]);
+                }
+            }
+        }
+        return memo[n][gw];
+    }
+
+    /**
+     * Optimal strategy for a game
+     * Pick max point to win the game
+     * Eg {25,5,4,6} o/p 30
+     * @param arr
+     * @return
+     */
+    public int pickPointRec(int[] arr,int start,int end){
+        if(start+1==end){
+            return Math.max(arr[start],arr[end]);
+        }
+        int totalPointIfPickStart = arr[start]+Math.min(pickPointRec(arr,start+2,end),pickPointRec(arr,start+1,end-1));
+        int totalPointIfPickEnd = arr[end]+Math.min(pickPointRec(arr,start,end-2),pickPointRec(arr,start+1,end-1));
+        return Math.max(totalPointIfPickStart,totalPointIfPickEnd);
+    }
+    public int pickPointMemo(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[][] memo = new int[arr.length][arr.length];
+        pickPoint(arr,0,arr.length-1,memo);
+        return memo[0][arr.length-1];
+    }
+    private int pickPoint(int[] arr,int start, int end,int[][] memo){
+        if(start+1==end){
+            return memo[start][end] = Math.max(arr[start],arr[end]);
+        }
+        if(memo[start][end]!=0) return memo[start][end];
+        memo[start][end] = arr[start]+Math.min(pickPoint(arr,start+2,end,memo),pickPoint(arr, start+1, end-1, memo));
+        memo[start][end] = Math.max(memo[start][end],arr[end]+Math.min(pickPoint(arr,start,end-2,memo),pickPoint(arr,start+1,end-1,memo)));
+        return memo[start][end];
+    }
+
+    public int pickPointTabulation(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[][] memo = new int[arr.length][arr.length];
+
+        for(int gap=1;gap<arr.length;gap=gap+2){
+            for(int i=0;i+gap<arr.length;i++){
+                int j=i+gap;
+                if(i+1==j){
+                    memo[i][j] = Math.max(arr[i],arr[j]);
+                    continue;
+                }
+                memo[i][j] = Math.max(arr[i]+Math.min(memo[i+2][j],memo[i+1][j-1]),
+                        arr[j]+Math.min(memo[i][j-2],memo[i+1][j-1]));
+            }
+        }
+        return memo[0][arr.length-1];
+    }
+
 }
 
