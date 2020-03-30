@@ -546,6 +546,48 @@ public class DynamicProgramming {
     }
 
     /**
+     * Length of Longest BiTonic subsequence
+     * Eg {1,11,2,10,4,5,2,1}
+     * increasing 1,2,10
+     * decreasing 10,4,2,1 or 10,5,2,1
+     * length = 3+4-1=6
+     */
+    public int longestBiTonicSubSeq(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[] lis = new int[arr.length];
+        int[] lds = new int[arr.length];
+        int lis_i=0;//1 2 3 4
+        // lis = {1,2,4,1,0,0,0}
+        lis[lis_i++]=arr[0];
+        for(int i=1;i<arr.length;i++){
+            if(arr[i]<lis[lis_i-1]){
+                int pos = getPosition(arr,arr[i],0,i);//0,
+                lis[pos]=arr[i];
+            }else{
+                lis[lis_i++] = arr[i];
+            }
+        }
+        int lds_i=arr.length-1;//3 4 5
+        //lds = {1,2,4,10,2} {0,11,2,1,4,2,1}
+        lds[lds_i--] = arr[arr.length-1];
+        for(int i=arr.length-2;i>=0;i--){
+            if(arr[i]<arr[lds_i-1]){
+                int pos = getPosition(arr,arr[i],i,arr.length-1);
+                lds[pos] = arr[i];
+            }else{
+                lds[lds_i--] = arr[i];
+            }
+        }
+        // Lis and lds should be same length
+        int count=0;
+        for(int i=0;i<lis.length;i++){
+            if(lis[i]!=0) count++;
+            if(lds[i]!=0) count++;
+        }
+        return count-1;
+    }
+
+    /**
      * Get Max cut of a Rod
      * Given Rod of size m and probable cuts a,b,c.
      * Find out the max cut we can get.
@@ -851,6 +893,70 @@ public class DynamicProgramming {
             }
         }
         return memo[0][arr.length-1];
+    }
+
+    /**
+     * Egg Dropping Problem
+     * Given n floors and k eggs
+     * Find minimum number of tries to find the floor from which eggs will not break
+     */
+    public int eggDropRec(int floors,int eggs){
+        //No floors or egg no trials
+        if(floors==0 || eggs==0){
+            return 0;
+        }
+        // If only one floor or 1 egg number of trials are number of floors
+        if(floors==1 || eggs ==1){
+            return floors;
+        }
+        int tries = Integer.MAX_VALUE;
+        for(int i=1;i<=floors;i++){
+            tries = Math.min(1+ Math.max(eggDropRec(i-1,eggs-1),eggDropRec(floors-i,eggs)),tries);
+        }
+        return tries;
+    }
+
+    public int eggDropTabulation(int floors,int eggs){
+        int[][] memo = new int[floors+1][eggs+1];
+        for(int i=0;i<memo.length;i++){
+            for(int j=0;j<memo[0].length;j++){
+                if(i==0 || j==0){
+                    memo[i][j]=0;
+                    continue;
+                }
+                if(i==1 || j==1){
+                    memo[i][j]=i;
+                    continue;
+                }
+                memo[i][j] = Integer.MAX_VALUE;
+                for(int x=1;x<i;x++)
+                    memo[i][j] = Math.min(memo[i][j],Math.max(memo[x-1][j-1],memo[i-x][j])+1);
+            }
+        }
+        return memo[floors][eggs];
+    }
+
+    /**
+     * Maximum Sum with no 2 consecutive elements of arr
+     * @return
+     */
+    public int maxSum(int[] arr, int n){
+        if(arr==null || arr.length==0) return 0;
+        if(n==1) return arr[0];
+        if(n==2) return Math.max(arr[0],arr[1]);
+        return Math.max(maxSum(arr,n-1),maxSum(arr,n-2)+arr[n-1]);
+    }
+
+    public int maxSumTabulation(int[] arr){
+        if(arr==null || arr.length==0) return 0;
+        int[] memo = new int[arr.length+1];
+        memo[0] = 0;
+        memo[1] = arr[0]; //n==1
+        memo[2] = Math.max(arr[0],arr[1]);//n==2
+        for(int i=3;i<=arr.length;i++){
+            memo[i] = Math.max(memo[i-1],memo[i-2]+arr[i-1]);
+        }
+        return memo[arr.length];
     }
 
 }

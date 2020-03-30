@@ -364,4 +364,32 @@ public class DynamicProgrammingTest {
         Assertions.assertEquals(32,dynamicProgramming.pickPointTabulation(arr));
     }
 
+    @Test
+    public void testLongestBiTonicSubSeq_0(){
+        int[] arr = {1,11,2,10,4,5,2,1};
+        Assertions.assertEquals(6,dynamicProgramming.longestBiTonicSubSeq(arr));
+    }
+
+    @Test
+    public void testEddDropRec(){
+        Assertions.assertEquals(3,dynamicProgramming.eggDropRec(4,3));
+    }
+
+    @Test
+    public void testEggDropTabulation(){
+        Assertions.assertEquals(3,dynamicProgramming.eggDropTabulation(4,3));
+    }
+
+    @Test
+    public void testMaxSumRec(){
+        int[] arr = {1,10,5};
+        Assertions.assertEquals(10,dynamicProgramming.maxSum(arr,arr.length));
+    }
+
+    @Test
+    public void testMaxSumTabulation(){
+        int[] arr = {1,10,5};
+        Assertions.assertEquals(10,dynamicProgramming.maxSumTabulation(arr));
+    }
+
 }
