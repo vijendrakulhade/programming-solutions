@@ -951,12 +951,41 @@ public class DynamicProgramming {
         if(arr==null || arr.length==0) return 0;
         int[] memo = new int[arr.length+1];
         memo[0] = 0;
-        memo[1] = arr[0]; //n==1
-        memo[2] = Math.max(arr[0],arr[1]);//n==2
+        memo[1] = arr[0]; //n==1 // space can be optimized by just taking var sum_1
+        memo[2] = Math.max(arr[0],arr[1]);//n==2 //space can be optimized by just taking var sum_2
         for(int i=3;i<=arr.length;i++){
-            memo[i] = Math.max(memo[i-1],memo[i-2]+arr[i-1]);
+            memo[i] = Math.max(memo[i-1],memo[i-2]+arr[i-1]); //res = Math.max(sum_2,sum_1+arr[i-1])
+            // sum_1 = sum_2
+            // sum_2 = res
         }
-        return memo[arr.length];
+        return memo[arr.length]; //res
+    }
+
+    public int subsetWithSum(int[] arr, int sum,int idx){
+        if(arr==null || arr.length==0) return 0;
+        if(idx==0) {
+            return sum == 0? 1:0;
+        }
+        int countWithIdx = subsetWithSum(arr,sum,idx-1);
+        int countWithoutIdx = subsetWithSum(arr,sum-arr[idx-1],idx-1);
+        return countWithIdx+countWithoutIdx;
+    }
+
+    public int subsetWithSumTab(int[] arr,int sum){
+        if(arr==null || arr.length==0) return 0;
+        if(sum==0) return 1;
+        int[][] memo = new int[sum+1][arr.length+1];
+        for(int i=0;i<=arr.length;i++) memo[0][i]=1;
+        for(int i=1;i<memo.length;i++){
+            for(int j=1;j<memo[0].length;j++){
+                if(i-arr[j-1]>=0){
+                    memo[i][j] = memo[i][j-1]+memo[i-arr[j-1]][j-1];
+                }else{
+                    memo[i][j] = memo[i][j-1];
+                }
+            }
+        }
+        return memo[sum][arr.length];
     }
 
 }

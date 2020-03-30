@@ -392,4 +392,27 @@ public class DynamicProgrammingTest {
         Assertions.assertEquals(10,dynamicProgramming.maxSumTabulation(arr));
     }
 
+    @Test
+    public void testSubsetSum(){
+        int[] arr = {1,2,3};
+        Assertions.assertEquals(2,dynamicProgramming.subsetWithSum(arr,3,arr.length));
+    }
+    @Test
+    public void testSubsetSum_1(){
+        int[] arr = {10,20,15};
+        Assertions.assertEquals(1,dynamicProgramming.subsetWithSum(arr,25,arr.length));
+    }
+
+    @Test
+    public void testSubsetSumTab(){
+        int[] arr = {1,2,3};
+        Assertions.assertEquals(2,dynamicProgramming.subsetWithSumTab(arr,3));
+    }
+
+    @Test
+    public void testSubsetSumTab_1(){
+        int[] arr = {10,20,15};
+        Assertions.assertEquals(1,dynamicProgramming.subsetWithSumTab(arr,25));
+    }
+
 }
