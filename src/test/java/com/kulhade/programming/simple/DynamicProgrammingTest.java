@@ -1,11 +1,9 @@
 package com.kulhade.programming.simple;
 
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,23 +66,23 @@ public class DynamicProgrammingTest {
     public void testFindWaysToMakeChangeNoRecursion(){
         int[] coins = {25,10,5,1};
         int money = 27;
-        int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assertions.assertEquals(ways,13);
+        int ways = dynamicProgramming.findWaysToMakeChangeNoRecursion(coins,money);
+        Assertions.assertEquals(13,ways);
     }
 
     @Test
     public void testFindWaysToMakeChangeNoRecursion_1(){
-        int[] coins = {1,2,5};
-        int money = 5;
-        int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
-        Assertions.assertEquals(4,ways);
+        int[] coins = {1,2,3};
+        int money = 3;
+        int ways = dynamicProgramming.findWaysToMakeChangeNoRecursion(coins,money);
+        Assertions.assertEquals(3,ways);
     }
 
     @Test
     public void testFindWaysToMakeChangeNoRecursion_2(){
         int[] coins = {3,2,1};
         int money = 4;
-        int ways = dynamicProgramming.findWaysToMakeChange(coins,money);
+        int ways = dynamicProgramming.findWaysToMakeChangeNoRecursion(coins,money);
         Assertions.assertEquals(4,ways);
     }
 
@@ -132,10 +130,11 @@ public class DynamicProgrammingTest {
         int num = dynamicProgramming.longestCommonSubsequenceIterative(str1,str2);
         Assertions.assertEquals(4,num);
     }
+
     @Test
-    public void testDistinctCommonSubsequence(){
+    public void testDistinctCommonSubsequence_0(){
         String str1="rabbbit"; String str2="rabbit";
-        int num = dynamicProgramming.distinctCommonSubSequence(str1,str2);
+        int num = dynamicProgramming.distinctCommonSubSequence(str1,str2,str1.length(),str2.length());
         Assertions.assertEquals(3,num);
     }
 
@@ -144,6 +143,20 @@ public class DynamicProgrammingTest {
         String str1="rabbbit"; String str2="rabbit";
         int num = dynamicProgramming.distinctCommonSubSequenceIterative(str1,str2);
         Assertions.assertEquals(3,num);
+    }
+
+    @Test
+    public void testDistinctCommonSubsequence_2(){
+        String str1="banana"; String str2="ban";
+        int num = dynamicProgramming.distinctCommonSubSequenceIterative(str1,str2);
+        Assertions.assertEquals(3,num);
+    }
+
+    @Test
+    public void testDistinctCommonSubsequence_3(){
+        String str1="geeksforgeeks"; String str2="ge";
+        int num = dynamicProgramming.distinctCommonSubSequenceIterative(str1,str2);
+        Assertions.assertEquals(6,num);
     }
 
     @Test
@@ -413,6 +426,68 @@ public class DynamicProgrammingTest {
     public void testSubsetSumTab_1(){
         int[] arr = {10,20,15};
         Assertions.assertEquals(1,dynamicProgramming.subsetWithSumTab(arr,25));
+    }
+
+    @Test
+    public void testMatch(){
+        String s = "baaabab";
+        String p = "*ba*ab";
+        Assertions.assertTrue(dynamicProgramming.match(s,p,s.length(),p.length()));
+    }
+
+    @Test
+    public void testMatch_1(){
+        String s = "baaabab";
+        String p = "?*****ab";
+        Assertions.assertTrue(dynamicProgramming.match(s,p,s.length(),p.length()));
+    }
+
+    @Test
+    public void testMatch_2(){
+        String s = "baaabab";
+        String p = "?";
+        Assertions.assertFalse(dynamicProgramming.match(s,p,s.length(),p.length()));
+    }
+
+    @Test
+    public void testMatch_3(){
+        String s = "baaabab";
+        String p = "b?b";
+        Assertions.assertFalse(dynamicProgramming.match(s,p,s.length(),p.length()));
+    }
+
+    @Test
+    public void testMatchTab(){
+        String s = "baaabab";
+        String p = "*ba*ab";
+        Assertions.assertTrue(dynamicProgramming.matchTabulation(s,p));
+    }
+
+    @Test
+    public void testMatchTab_1(){
+        String s = "baaabab";
+        String p = "?*****ab";
+        Assertions.assertTrue(dynamicProgramming.matchTabulation(s,p));
+    }
+
+    @Test
+    public void testMatchTab_2(){
+        String s = "baaabab";
+        String p = "?";
+        Assertions.assertFalse(dynamicProgramming.matchTabulation(s,p));
+    }
+
+    @Test
+    public void testMatchTab_3(){
+        String s = "baaabab";
+        String p = "b?b";
+        Assertions.assertFalse(dynamicProgramming.matchTabulation(s,p));
+    }
+
+    @Test
+    public void testMaxIncSub(){
+        int[] arr = {-2,1,-3,4,-1,2,1,-5,4};
+        Assertions.assertEquals(7,dynamicProgramming.maxIncSub(arr));
     }
 
 }

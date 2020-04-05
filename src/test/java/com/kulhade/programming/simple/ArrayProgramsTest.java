@@ -311,4 +311,16 @@ public class ArrayProgramsTest {
         expected.add(new ArrayPrograms.Pair<>(14,50));
         Assertions.assertEquals(expected.size(),arrayPrograms.stockBuySell(prices).size());
     }
+
+    @Test
+    public void testMaxSubarraySum(){
+        int[] arr = {-2,1,-3,4,-1,2,1,-5,4};
+        Assertions.assertEquals(6,arrayPrograms.maxSubarraySum(arr));
+    }
+
+    @Test
+    public void testMaxSubarraySum_1(){
+        int[] arr = {-2,-1,-3,-4};
+        Assertions.assertEquals(-1,arrayPrograms.maxSubarraySum(arr));
+    }
 }

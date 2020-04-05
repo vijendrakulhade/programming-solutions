@@ -125,12 +125,12 @@ public class DynamicProgramming {
      * @param sum
      * @return
      */
-    private int makeChange(int[] coins, int i,int sum){
+    private int makeChange(int[] coins, int sum, int i){
         if(sum==0) return 1;
         if(i==0) return 0;
-        int ways = makeChange(coins,i-1,sum);
+        int ways = makeChange(coins,sum,i-1);
         if(coins[i-1]<=sum){
-            ways+=makeChange(coins,i,sum-coins[i-1]);
+            ways+=makeChange(coins,sum-coins[i-1],i);
         }
         return ways;
     }
@@ -187,16 +187,18 @@ public class DynamicProgramming {
     }
 
     private int makeChangeNoRecursion(int amount,int[] coins){
-        int[] combinations = new int[amount+1];
-        combinations[0]=0;
-        for(int coin:coins){
-            for(int i=1;i<=amount;i++){
-                if(i>=coin){
-                    combinations[i] = combinations[i]+combinations[i-coin];
+        int[][] combinations = new int[amount+1][coins.length+1];
+        for(int i=0;i<coins.length+1;i++)combinations[0][i]=1;
+        for(int i=1;i<=amount;i++){
+            for(int j=1;j<=coins.length;j++) {
+                if (i >= coins[j-1]) {
+                    combinations[i][j] += combinations[i - coins[j-1]][j];
                 }
+                combinations[i][j] +=combinations[i][j-1];
             }
         }
-        return combinations[amount];
+        printTwoDimArr(combinations);
+        return combinations[amount][coins.length];
 
     }
 
@@ -241,10 +243,10 @@ public class DynamicProgramming {
         }
         for (int i=1;i<memo.length;i++){
             for(int j=1;j<memo[0].length;j++){
-                if(str1.charAt(i-1)==str2.charAt(j-1)){
+                if(str1.charAt(i-1)!=str2.charAt(j-1)){
                     memo[i][j] = Math.max(memo[i][j-1],memo[i-1][j-1]);
                 }else{
-                    memo[i][j] = memo[i-1][j-1];
+                    memo[i][j] = 1+memo[i-1][j-1];
                 }
             }
         }
@@ -261,6 +263,19 @@ public class DynamicProgramming {
         }
 
     }
+
+    public int distinctCommonSubSequence(String s,String t,int s_i,int t_i){
+        if(t_i == 0) return 1;
+        if(s_i==0) return 0;
+
+        if(s.charAt(s_i-1)!=t.charAt(t_i-1)){
+            return distinctCommonSubSequence(s,t,s_i-1,t_i);
+        }else{
+            return distinctCommonSubSequence(s,t,s_i-1,t_i)+distinctCommonSubSequence(s,t,s_i-1,t_i-1);
+        }
+
+    }
+
 
     public int distinctCommonSubSequenceIterative(String str1,String str2){
         if(str2.length() == 0) return 0;
@@ -447,8 +462,6 @@ public class DynamicProgramming {
         return sb.toString();
     }
 
-
-
     /**
      * Method will form permutations of a given string
      * @param str
@@ -482,6 +495,15 @@ public class DynamicProgramming {
     }
 
     private void printTwoDimArr(int[][] arr){
+        if(arr==null) return;
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr[0].length;j++){
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+    private void printTwoDimArr(boolean[][] arr){
         if(arr==null) return;
         for(int i=0;i<arr.length;i++){
             for(int j=0;j<arr[0].length;j++){
@@ -543,6 +565,32 @@ public class DynamicProgramming {
             }
         }
         return r;
+    }
+
+    /**
+     * Find sum with increasing numbers
+     * [-2,1,-3,4,-1,2,1,-5,4] o/p 7 for {1,2,4}
+     * @param arr
+     * @return
+     */
+    public int maxIncSub(int[] arr){
+        if(arr==null || arr.length==0)
+            return 0;
+        int[] mis = new int[arr.length];
+        mis[0] = arr[0];//-2,
+        for(int i=1;i<arr.length;i++){
+            mis[i] = arr[i];//-2,1,-3,5,-1
+            for(int j=0;j<i;j++){
+                if(arr[j]<arr[i])
+                    mis[i] = Math.max(mis[i],mis[j]+arr[i]);//1
+            }
+        }
+
+        int max = mis[0];
+        for(int i=1;i<mis.length;i++){
+            max = Math.max(max,mis[i]);
+        }
+        return max;
     }
 
     /**
@@ -988,5 +1036,55 @@ public class DynamicProgramming {
         return memo[sum][arr.length];
     }
 
+    /**
+     * Wild card matching
+     * '*'  can match multiple char
+     * '?' can match single char
+     * @param s
+     * @param p
+     * @return
+     */
+    public boolean match(String s, String p,int m,int n){
+
+        if(m==0 && n==0) return true;
+        if(n==0 && m!=n) return false;
+        if(m==0 && n==1 && p.charAt(n-1)=='*') return true;
+        //Case #1 for ? there is one char match so we can move both pattern and string
+        // to m-1, n-1
+        // same can be done for exact char match
+        if(m>0 && n>0) {
+            if (s.charAt(m - 1) == p.charAt(n - 1) || p.charAt(n - 1) == '?') {
+                return match(s, p, m - 1, n - 1);
+            }
+            // Case #2 for * in pattern we cam move to next char in p OR
+            // we can ignore current char of string s
+            if (p.charAt(n - 1) == '*') {
+                return match(s, p, m, n - 1) || match(s, p, m - 1, n);
+            }
+        }
+        return false;
+    }
+
+    public boolean matchTabulation(String s,String p){
+        boolean[][] memo = new boolean[s.length()+1][p.length()+1];
+        memo[0][0] = true;
+        for(int i=1;i<p.length()+1;i++){
+            if(p.charAt(i-1)=='*')
+                memo[0][i] = true;
+        }
+        for(int i=1;i<memo.length;i++){
+            for(int j=1;j<memo[0].length;j++){
+                if(s.charAt(i-1)==p.charAt(j-1) || p.charAt(j-1)=='?') {
+                    memo[i][j] = memo[i - 1][j - 1];
+                }else if(p.charAt(j-1)=='*') {
+                    memo[i][j] = memo[i - 1][j] || memo[i][j - 1];
+                }else{
+                    memo[i][j] = false;
+                }
+            }
+        }
+        printTwoDimArr(memo);
+        return memo[s.length()][p.length()];
+    }
 }
 

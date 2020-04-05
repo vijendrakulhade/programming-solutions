@@ -176,4 +176,29 @@ public class SimplePrograms<T extends Comparable<T>> {
         }
         return Math.min(flipC,yCount);
     }
+    public boolean isHappy(int n) {
+        if(n==1)
+            return true;
+        if(n<=0)
+            return false;
+        int slow,fast;
+        slow=fast=n;
+        do{
+            slow = getSquareSum(slow);
+            fast = getSquareSum(getSquareSum(fast));
+        }while(slow!=fast);
+        return slow==1;
+    }
+
+    private int getSquareSum(int n){
+        int sum = 0;int rem = 0;
+        while(n>0){
+            rem = n%10;
+            sum += rem*rem;
+            n = n/10;
+        }
+        return sum;
+    }
+
+
 }

@@ -140,4 +140,14 @@ public class SimpleProgramsTest {
     public void testFlipCount(){
         System.out.print(simplePrograms.flipCountReturn("xxyxxyyyxxxyy"));
     }
+
+    @Test
+    public void testIsHappy(){
+        Assertions.assertTrue(simplePrograms.isHappy(19));
+    }
+
+    @Test
+    public void testIsHappy_1(){
+        Assertions.assertFalse(simplePrograms.isHappy(20));
+    }
 }
