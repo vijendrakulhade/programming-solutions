@@ -178,4 +178,28 @@ public class StringProgramsTest {
         System.out.println(s.substring(1,5));
     }
 
+    @Test
+    public void testBackspaceCompare(){
+        String S = "ab#c", T = "ad#c";
+        Assertions.assertTrue(stringPrograms.backspaceCompare(S,T));
+    }
+
+    @Test
+    public void testBackspaceCompare_1(){
+        String S = "ab#c", T = "#d#c";
+        Assertions.assertFalse(stringPrograms.backspaceCompare(S,T));
+    }
+
+    @Test
+    public void testFindFirstNonRepeatingCharIndex(){
+        String s="geeksforgeeks";
+        Assertions.assertEquals(5,stringPrograms.findFirstNonRepeatingCharIndex(s));
+    }
+
+    @Test
+    public void testFindFirstRepeatingCharIndex(){
+        String s="geeksforgeeks";
+        Assertions.assertEquals(0,stringPrograms.findFirstRepeatingCharIndex(s));
+    }
+
 }

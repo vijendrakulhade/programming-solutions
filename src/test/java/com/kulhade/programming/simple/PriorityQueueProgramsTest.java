@@ -26,4 +26,10 @@ public class PriorityQueueProgramsTest {
         int[] expected = {1,1,2,2,3,5,6,9,45,67,78};
         Assertions.assertArrayEquals(expected,programs.mergeKSortedArray(arrays));
     }
+
+    @Test
+    public void testLastStoneWeight(){
+        int[] stones = {2,7,4,1,8,1};
+        Assertions.assertEquals(1,programs.lastStoneWeight(stones));
+    }
 }

@@ -114,20 +114,6 @@ public class ArrayProgramsTest {
     }
 
     @Test
-    public void testToBinary() {
-        int[] expected = {0, 1, 0, 1};
-        int[] actual = ArrayPrograms.toBinary(5, 4);
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void testToDecimal() {
-        int[] input = {0, 1, 0, 1};
-        int actual = ArrayPrograms.toDecimal(input);
-        Assertions.assertEquals(5, actual);
-    }
-
-    @Test
     public void testFindUniqueElement_With3RepeatedElement() {
         int[] testArr = {5, 5, 5, 4, 4, 8, 8, 4, 8, 9};
         int actual = arrayPrograms.findUniqueElement(testArr, 3);

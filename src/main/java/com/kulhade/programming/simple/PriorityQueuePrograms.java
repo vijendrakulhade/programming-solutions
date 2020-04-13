@@ -1,5 +1,6 @@
 package com.kulhade.programming.simple;
 
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 /**
@@ -75,5 +76,23 @@ public class PriorityQueuePrograms {
                 q.offer(new ArrayContainer(c.arr,c.index+1));
         }
         return result;
+    }
+
+    public int lastStoneWeight(int[] stones) {
+        if(stones==null || stones.length==0) return 0;
+        PriorityQueue<Integer> heap = new PriorityQueue(Collections.reverseOrder());
+        for(int i=0;i<stones.length;i++){
+            heap.add(stones[i]);
+        }
+        while(heap.size()>1){
+            int x = heap.poll();
+            int y = heap.poll();
+            if(x==y) continue;
+            if(x>y){
+                x = x-y;
+                heap.add(x);
+            }
+        }
+        return heap.size()==1?heap.poll():0;
     }
 }

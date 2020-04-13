@@ -1,7 +1,7 @@
 package com.kulhade.programming.simple;
 
 public class LinkedListPrograms {
-    class ListNode {
+    static class ListNode {
         int val;
         ListNode next;
 
@@ -39,4 +39,15 @@ public class LinkedListPrograms {
 
         return sum.next;
     }
+
+    public ListNode reverse(ListNode head){
+        if(head==null || head.next==null) return head;
+        ListNode rest = reverse(head.next);
+        head.next.next=head;
+        if(head!=null) {
+            head.next = null;
+        }
+        return rest;
+    }
+
 }

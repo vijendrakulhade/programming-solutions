@@ -3,6 +3,9 @@ package com.kulhade.programming.simple;
 
 import java.util.*;
 
+import static com.kulhade.programming.simple.BitManipulation.toBinary;
+import static com.kulhade.programming.simple.BitManipulation.toDecimal;
+
 /**
  * Created by vn05f93 on 10/5/17.
  */
@@ -339,32 +342,7 @@ public class ArrayPrograms {
         return toDecimal(countBitSet);
     }
 
-    /**
-     * Method will convert Integer to Binary and return binary bits in a array
-     * @param number
-     * @param length
-     * @return
-     */
-    public  static int[] toBinary(int number, int length) {
-        final int[] binary_digits = new int[length];
-        for (int i = 0; i < length; i++) {
-            binary_digits[length - 1 - i] = (1 << i & number) != 0?1:0;
-        }
-        return binary_digits;
-    }
 
-    /**
-     * Method will convert  Binary to Decimal
-     * @param binary_digits
-     * @return
-     */
-    public static int toDecimal(int[] binary_digits) {
-        int decimal_number = 0;
-        for (int i = 0; i < binary_digits.length; i++) {
-            decimal_number = decimal_number << 1  | binary_digits[i];
-        }
-        return decimal_number;
-    }
 
     private void sumCountSetBit(int[] binary_arr,int[] countSetBit){
         if(binary_arr.length!=countSetBit.length){
@@ -630,6 +608,7 @@ public class ArrayPrograms {
     }
 
     /**
+     * Kandan's Algorithm
      * Find the max sum with contiguous elements from array
      * {-2,1,-3,4,-1,2,1,-5,4} o/p 6 {4,-1,2,1}
      * @param arr
@@ -639,12 +618,15 @@ public class ArrayPrograms {
         if(arr==null || arr.length==0)
             return 0;
 
-        int maxSoFar = arr[0];
-        int maxEndHere = arr[0];
-        for(int i=1;i<arr.length;i++){
+        int maxSoFar = Integer.MIN_VALUE;
+        int maxEndHere = 0;
+        int maxElem = Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
             maxEndHere = Math.max(0,maxEndHere+arr[i]);
             maxSoFar = Math.max(maxSoFar,maxEndHere);
+            maxElem = Math.max(maxElem,arr[i]);
         }
+        if(maxSoFar==0) return maxElem;
         return maxSoFar;
     }
 

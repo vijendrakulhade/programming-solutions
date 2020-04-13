@@ -323,6 +323,112 @@ public class StringPrograms {
     }
 
     /**
-     * Flip String to monotone
+     * Group Anagram
      */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if(strs==null || strs.length==0) return new ArrayList();
+        Map<String,List<String>> m = new HashMap();
+        for(String s:strs){
+            char[] chars = new char[26];
+            for(char c:s.toCharArray()){
+                chars[c-'a'] = c;
+            }
+            String key = new String(chars);
+            if(!m.containsKey(key)){
+                m.put(key,new ArrayList());
+            }
+            m.get(key).add(s);
+        }
+        List<List<String>> result = new ArrayList();
+        for(List<String> grp:m.values())
+            result.add(grp);
+        return result;
+    }
+
+    /**
+     * Given two strings S and T, return if they are equal when both are typed into empty text editors.
+     * # means a backspace character.
+     * S = "ab#c", T = "ad#c" o/p true
+     * @param S
+     * @param T
+     * @return
+     */
+    public boolean backspaceCompare(String S, String T) {
+        if(S==null && T==null) return true;
+        if(S==null || T==null) return false;
+
+        Deque<Character> S_stack = new ArrayDeque<Character>();
+        Deque<Character> T_stack = new ArrayDeque<Character>();
+        int i=0,j=0;
+        while(i<S.length() || j<T.length()){
+            if(i>=0 && S.charAt(i)=='#'){
+                if(!S_stack.isEmpty()) S_stack.pop();
+            }else{
+                S_stack.push(S.charAt(i));
+            }
+
+            if(j>=0 && T.charAt(j)=='#'){
+                if(!T_stack.isEmpty()) T_stack.pop();
+            }else{
+                T_stack.push(T.charAt(j));
+            }
+            i++;j++;
+        }
+
+        if(S_stack.size() !=T_stack.size()) return false;
+        for(int k=0;k<S_stack.size();k++){
+            if(S_stack.pop()!=T_stack.pop()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Find first repeating char's Index
+     * geeksforgeeks ans 0
+     * @param s
+     * @return
+     */
+    public int findFirstRepeatingCharIndex(String s){
+        if(s==null || s.length()==0) return -1;
+        int[] chars = new int[256];
+        int res = Integer.MAX_VALUE;
+        for(int i=0;i<256;i++) chars[i]=-1;
+        for(int i=0;i<s.length();i++){
+            if(chars[s.charAt(i)]==-1){
+                chars[s.charAt(i)]=i;
+            }else{
+                res = Math.min(res,chars[s.charAt(i)]);
+            }
+        }
+        return res==Integer.MAX_VALUE?-1:res;
+    }
+
+    /**
+     * Find first non repeating char
+     * @param s
+     * @return
+     */
+    public int findFirstNonRepeatingCharIndex(String s){
+        if(s==null || s.length()==0) return -1;
+        int[] chars = new int[256];
+        for(int i=0;i<256;i++){
+            chars[i]=-1;
+        }
+        for(int i=0;i<s.length();i++){
+            if(chars[s.charAt(i)]==-1){
+                chars[s.charAt(i)] = i;
+            }else{
+                chars[s.charAt(i)] = -2;
+            }
+        }
+        int res = Integer.MAX_VALUE;
+        for(int i=0;i<256;i++){
+            if(chars[i]>=0){
+                res = Math.min(res,chars[i]);
+            }
+        }
+        return res==Integer.MAX_VALUE?-1:res;
+    }
 }

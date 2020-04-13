@@ -33,5 +33,32 @@ public class BitManipulation {
         return a;
     }
 
+    /**
+     * Method will convert Integer to Binary and return binary bits in a array
+     * @param number
+     * @param length
+     * @return
+     */
+    public  static int[] toBinary(int number, int length) {
+        final int[] binary_digits = new int[length];
+        for (int i = 0; i < length; i++) {
+            binary_digits[length - 1 - i] = (1 << i & number) != 0?1:0;
+        }
+        return binary_digits;
+    }
+
+    /**
+     * Method will convert  Binary to Decimal
+     * @param binary_digits
+     * @return
+     */
+    public static int toDecimal(int[] binary_digits) {
+        int decimal_number = 0;
+        for (int i = 0; i < binary_digits.length; i++) {
+            decimal_number = decimal_number << 1  | binary_digits[i];
+        }
+        return decimal_number;
+    }
+
 
 }
