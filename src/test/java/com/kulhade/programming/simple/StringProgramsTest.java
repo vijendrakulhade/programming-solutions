@@ -202,4 +202,23 @@ public class StringProgramsTest {
         Assertions.assertEquals(0,stringPrograms.findFirstRepeatingCharIndex(s));
     }
 
+    @Test
+    public void testLexicographicalRank(){
+        String s = "BAC";
+        Assertions.assertEquals(3,stringPrograms.lexicographicalRank(s));
+    }
+
+    @Test
+    public void testLexicographicalRank_1(){
+        String s = "STRING";
+        Assertions.assertEquals(598,stringPrograms.lexicographicalRank(s));
+    }
+
+    @Test
+    public void testIsPalindromicPattern(){
+        String s = "geeksforgeeks";
+        String p = "egeks";
+        Assertions.assertTrue(stringPrograms.isPalindromicPattern(s,p)) ;
+    }
+
 }

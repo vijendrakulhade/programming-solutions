@@ -81,7 +81,7 @@ public class GraphOTest {
     public void testIsCyclic_0(){
         GraphO<Integer> graphO = new GraphO<>();
         graphO.addEdge(0,1);
-
+        graphO.addEdge(1,0);
         Assertions.assertFalse(graphO.isCyclic());
     }
 
@@ -137,7 +137,12 @@ public class GraphOTest {
         graphO.addEdgeDirected(2,3);
         graphO.addEdgeDirected(3,4);
         graphO.addEdgeDirected(4,5);
-        Assertions.assertArrayEquals(graphO.getVertices().toArray(),graphO.findInDegree().keySet().toArray());
+        Map<Integer,Integer> inDegree = graphO.findInDegree();
+        System.out.println(inDegree.values());
+        Integer[] expected = {0, 2, 0, 1, 1, 1};
+        Integer[] actual = (Integer[])inDegree.values().toArray();
+        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(graphO.getVertices().toArray(),inDegree.keySet().toArray());
     }
     @Test
     //0-->1<--2-->3-->4-->5

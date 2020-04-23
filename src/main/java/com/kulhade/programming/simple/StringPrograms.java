@@ -431,4 +431,77 @@ public class StringPrograms {
         }
         return res==Integer.MAX_VALUE?-1:res;
     }
+
+    /**
+     * Find the lexicographical rank given string
+     * in all the permutation of sorted string
+     * @param s
+     * @return
+     */
+    public int lexicographicalRank(String s){
+        if(s==null ||s.length()==0) return 0;
+        int rank = 1;
+        int n=s.length();
+        Long fact = factorial(n);
+        int[] count = new int[256];
+        //store the frequency of each char in String;
+        for(int i=0;i<n;i++){
+            count[s.charAt(i)]++;
+        }
+        //store the Cumulative frequency of each char and its lesser in String;
+        //Eg B = FreqOf(B)+FreqOf(A)
+        for(int i=1;i<256;i++){
+            count[i] = count[i]+count[i-1];
+        }
+        for(int i=0;i<n;i++){
+            fact = fact/(n-i);
+            if(count[s.charAt(i)-1]>=0)
+                rank = rank+count[s.charAt(i)-1]* fact.intValue();
+            for(int j=s.charAt(i);j<256;j++)
+                count[j]--;
+        }
+        return rank;
+    }
+
+    private long factorial(int n){
+        long fact = 1;
+        while(n>1){
+            fact*=n--;
+        }
+        return fact;
+    }
+
+    public boolean isPalindromicPattern(String s,String p){
+        if(s==null || p==null){
+            return false;
+        }
+        if(s.length()==0 && p.length()==0){
+            return true;
+        }
+        if(s.length()==0 || p.length()==0){
+            return false;
+        }
+        int[] countTextW = new int[256];
+        int[] countPatW = new int[256];
+        for(int i=0;i<p.length();i++){
+            countTextW[s.charAt(i)]++;
+            countPatW[p.charAt(i)]++;
+        }
+        for(int i=p.length();i<s.length();i++){
+            if(areSame(countTextW,countPatW)){
+                return true;
+            }
+            countTextW[s.charAt(i)]++;
+            countTextW[s.charAt(i-p.length())]--;
+        }
+        return false;
+    }
+
+    private boolean areSame(int[] arr1,int[] arr2){
+        if(arr1.length!=arr2.length) return false;
+        for(int i=0;i<arr1.length;i++){
+            if(arr1[i]!=arr2[i]) return false;
+        }
+        return true;
+    }
 }

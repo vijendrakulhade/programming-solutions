@@ -490,4 +490,19 @@ public class DynamicProgrammingTest {
         Assertions.assertEquals(7,dynamicProgramming.maxIncSub(arr));
     }
 
+    @Test
+    public void testCountUniqueBST(){
+        Assertions.assertEquals(5,dynamicProgramming.countUniqueBST(3));
+    }
+
+    @Test
+    public void testCountUniqueBST_2(){
+        Assertions.assertEquals(42,dynamicProgramming.countUniqueBST(5));
+    }
+
+    @Test
+    public void testMinPathSum(){
+        int[][] grid = {{1,2,5},{3,2,1}};
+        Assertions.assertEquals(6,dynamicProgramming.minPathSum(grid));
+    }
 }

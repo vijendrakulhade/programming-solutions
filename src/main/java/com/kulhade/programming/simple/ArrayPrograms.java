@@ -630,4 +630,39 @@ public class ArrayPrograms {
         return maxSoFar;
     }
 
+    /**
+     * Merge sort Top Down implementation
+     * @param input
+     * @return
+     */
+    public int[] merge_sort(int[] input){
+        if(input==null || input.length<=1) return input;
+        int pivot = input.length/2;
+        int[] left = merge_sort(Arrays.copyOfRange(input,0,pivot));
+        int[] right = merge_sort(Arrays.copyOfRange(input,pivot,input.length));
+        return merge(left,right);
+    }
+
+    private int[] merge(int[] left,int[] right){
+        int left_i=0,right_i=0,i=0;
+        int[] res = new int[left.length+right.length];
+        while(left_i<left.length || right_i<right.length){
+            if(left_i<left.length && right_i<right.length){
+                if(left[left_i]<right[right_i]){
+                    res[i++] = left[left_i++];
+                }else{
+                    res[i++] = right[right_i++];
+                }
+                continue;
+            }
+            if(left_i<left.length){
+                res[i++] = left[left_i++];
+            }
+            if(right_i<right.length){
+                res[i++] = right[right_i++];
+            }
+        }
+        return res;
+    }
+
 }

@@ -86,7 +86,7 @@ public class GraphO<T>{
         for(T a:graph.keySet()){
             if(visited.contains(a))
                 continue;
-             if(dfsCycle(a,visited,p)) return true;
+             if(dfsCycleRec(a,visited,p)) return true;
         }
         return false;
     }

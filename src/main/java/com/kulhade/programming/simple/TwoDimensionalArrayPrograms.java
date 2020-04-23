@@ -141,4 +141,57 @@ public class TwoDimensionalArrayPrograms {
         }
 
     }
+    public boolean search2DMatrix(int[][] matrix,int target){
+        if(matrix==null || matrix.length==0 || matrix[0].length==0)
+            return false;
+        return search(matrix,0,matrix.length,0,matrix[0].length,target);
+    }
+    private  boolean search(int[][] m,int r_s,int r_e,int c_s,int c_e,int target){
+        if(r_s==r_e-1 && c_s==c_e-1) {
+            return m[r_s][c_s]==target;
+        }
+        int r_p = r_s+((r_e-r_s)/2);
+        int c_p = c_s+((c_e-c_s)/2);
+        if(r_p==0){
+            //Only columns
+            if(c_p==c_e-1){
+                return m[r_p][c_p]==target;
+            }
+            if(m[r_p][c_s]<=target && m[r_p][c_p-1]>=target){
+                if(m[r_p][c_s]==target) return true;
+                if(m[r_p][c_p-1]==target) return true;
+                return search(m,r_s,r_p,c_s,c_p,target);
+            }else{
+                return search(m,r_s,r_p,c_p,c_e,target);
+            }
+        }
+        if(c_p==0){
+            if(r_p==r_e-1){
+                return m[r_p][c_p]==target;
+            }
+            if(m[r_s][c_s]<=target && m[r_p-1][c_p]>=target){
+                if(m[r_s][c_s]==target) return true;
+                if(m[r_p-1][c_p]==target) return true;
+                return search(m,r_s,r_p,c_s,c_p,target);
+            }else{
+                return search(m,r_s,r_e,c_s,c_p,target);
+            }
+        }
+        if(m[r_s][c_s]<=target && m[r_p-1][c_p-1]>=target){
+            if(m[r_s][c_s]==target) return true;
+            if(m[r_p-1][c_p-1]==target) return true;
+            return search(m,r_s,r_p,c_s,c_p,target);
+        }else if(m[r_p][c_s]<=target && m[r_e-1][c_p-1]>=target){
+            if(m[r_p][c_s]==target) return true;
+            if(m[r_e-1][c_p-1]==target) return true;
+            return search(m,r_p,r_e,c_s,c_p,target);
+        }else if(m[r_s][c_p]<=target && m[r_p-1][c_e-1]>=target){
+            if(m[r_s][c_p]==target) return true;
+            if(m[r_p-1][c_e-1]==target) return true;
+            return search(m,r_s,r_p,c_p,c_e,target);
+        }else{
+            return search(m,r_p,r_e,c_p,c_e,target);
+        }
+
+    }
 }

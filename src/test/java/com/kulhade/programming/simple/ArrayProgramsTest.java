@@ -309,4 +309,11 @@ public class ArrayProgramsTest {
         int[] arr = {-2,-1,-3,-4};
         Assertions.assertEquals(-1,arrayPrograms.maxSubarraySum(arr));
     }
+
+    @Test
+    public void testMergeSort(){
+        int[] merge_sort = {5,1,1,2,0,0};
+        int[] expected = {0,0,1,1,2,5};
+        Assertions.assertArrayEquals( expected,arrayPrograms.merge_sort(merge_sort));
+    }
 }

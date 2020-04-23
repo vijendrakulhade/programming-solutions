@@ -1,0 +1,68 @@
+package com.kulhade.programming.simple;
+
+
+import java.util.*;
+
+public class GraphPrograms {
+
+    public String alienDictionary(String[] words){
+        if(words==null || words.length==0) return "";
+        Map<Character, Set<Character>> graph = new HashMap<>();
+        Map<Character,Integer> inDegree = new HashMap<>();
+        buildGraph(graph,inDegree,words);
+        String order = topologicalSort(graph,inDegree);
+        return order.length()==graph.size()?order:"";
+    }
+
+    private void buildGraph(Map<Character,Set<Character>> graph,
+                            Map<Character,Integer> inDegree,
+                            String[] words) {
+        for (String w : words) {
+            for (char c : w.toCharArray()) {
+                graph.put(c, new HashSet<>());
+                inDegree.put(c,0);
+            }
+        }
+
+        for (int i = 1; i < words.length; i++) {
+            String first = words[i - 1];
+            String sec = words[i];
+            int len = Math.min(first.length(), sec.length());
+            for (int j = 0; j < len; j++) {
+                if (first.charAt(j) != sec.charAt(j)) {
+                    if (!graph.get(first.charAt(j)).contains(sec.charAt(j))) {
+                        graph.get(first.charAt(j)).add(sec.charAt(j));
+                        int d = inDegree.get(sec.charAt(j)) + 1;
+                        inDegree.put(sec.charAt(j), d);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    private String topologicalSort(Map<Character,Set<Character>> graph,Map<Character,Integer> inDegree){
+        Queue<Character> q = new LinkedList<>();
+        StringBuffer sb = new StringBuffer();
+        for(char c:inDegree.keySet()){
+            if(inDegree.get(c)==0){
+                q.add(c);
+                sb.append(c);
+            }
+        }
+        while(!q.isEmpty()){
+            char c= q.poll();
+            for(char adj:graph.get(c)){
+                if(sb.indexOf(adj+"")==-1){
+                    int d = inDegree.get(adj);
+                    inDegree.put(adj,d-1);
+                    if(inDegree.get(adj)==0){
+                        q.add(adj);
+                        sb.append(adj);
+                    }
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
