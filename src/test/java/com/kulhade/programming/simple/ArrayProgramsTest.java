@@ -316,4 +316,16 @@ public class ArrayProgramsTest {
         int[] expected = {0,0,1,1,2,5};
         Assertions.assertArrayEquals( expected,arrayPrograms.merge_sort(merge_sort));
     }
+
+    @Test
+    public void testSearchInRotatedSOrted(){
+        int[]  a = {3,5,1};
+        Assertions.assertEquals(0,arrayPrograms.searchInRotatedSorted(a,3));
+    }
+
+    @Test
+    public void testSearchInRotatedSOrted_1(){
+        int[]  a = {5,1,3};
+        Assertions.assertEquals(0,arrayPrograms.searchInRotatedSorted(a,5));
+    }
 }

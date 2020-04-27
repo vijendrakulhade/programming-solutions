@@ -132,6 +132,13 @@ public class DynamicProgrammingTest {
     }
 
     @Test
+    public void testLongestCommonSubsequenceIter_1(){
+        String str1="abcde"; String str2="ace";
+        int num = dynamicProgramming.longestCommonSubsequenceIterative(str1,str2);
+        Assertions.assertEquals(3,num);
+    }
+
+    @Test
     public void testDistinctCommonSubsequence_0(){
         String str1="rabbbit"; String str2="rabbit";
         int num = dynamicProgramming.distinctCommonSubSequence(str1,str2,str1.length(),str2.length());

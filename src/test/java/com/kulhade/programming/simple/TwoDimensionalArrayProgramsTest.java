@@ -94,7 +94,7 @@ public class TwoDimensionalArrayProgramsTest {
     @Test
     public void testSearch2DMatrix_2(){
         int[][] m = {{-1,3}};
-        Assertions.assertTrue(twoDimensionalArrayPrograms.search2DMatrix(m,3));
+        Assertions.assertTrue(twoDimensionalArrayPrograms.search2DMatrix(m,-1));
     }
 
     @Test

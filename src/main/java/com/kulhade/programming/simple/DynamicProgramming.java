@@ -238,13 +238,11 @@ public class DynamicProgramming {
             return 0;
         }
         int[][] memo = new int[str1.length()+1][str2.length()+1];
-        for(int j=0;j<memo[0].length;j++){
-            memo[0][j]=1;
-        }
+
         for (int i=1;i<memo.length;i++){
             for(int j=1;j<memo[0].length;j++){
                 if(str1.charAt(i-1)!=str2.charAt(j-1)){
-                    memo[i][j] = Math.max(memo[i][j-1],memo[i-1][j-1]);
+                    memo[i][j] = Math.max(memo[i][j-1],memo[i-1][j]);
                 }else{
                     memo[i][j] = 1+memo[i-1][j-1];
                 }
