@@ -690,4 +690,147 @@ public class ArrayPrograms {
             }
             return -1;
         }
+
+    /**
+     * Sliding window Maximum
+     * return all the maximum on sliding windows
+     */
+    public int[] slidingWindowMax(int[] nums,int k){
+        if(nums==null || nums.length==0) return nums;
+        int n =  nums.length;
+        int[] res = new int[n-k+1];
+        Deque<Integer> dq = new LinkedList<>();
+        int j=0;
+        for(int i=0;i<n;i++){
+            while (!dq.isEmpty() && dq.peek()<=i-k){
+                dq.poll();
+            }
+            while(!dq.isEmpty() && nums[dq.peekLast()]<=nums[i]){
+                dq.removeLast();
+            }
+            dq.add(i);
+            if(i>=k-1){
+                res[j++] = nums[dq.peek()];
+            }
+        }
+
+        return res;
+
+
+    }
+
+    public float[] slidingWindowAvg(int[] input, int k){
+        if(input==null || input.length==0){
+            return null;
+        }
+        float[] result = new float[input.length-k+1];
+        if(k==1){
+            for(int i=0;i<input.length;i++){
+                result[i]=input[i];
+            }
+            return result;
+        }
+        float sum=0;
+        int i=0;
+        for(;i<k;i++){
+            sum+=input[i];
+        }
+        result[i-k]=sum/k;
+        for(;i<input.length;i++){
+            sum += input[i]-input[i-k];
+            result[i-k+1]=sum/k;
+        }
+        return result;
+
+    }
+
+    /**
+     * Smallest Sub array size for a given Sum
+     */
+    int smallestSubArrSizeSum(int[] arr,int sum){
+        if(arr==null || arr.length==0){
+            return 0;
+        }
+        int start=0,end=0,minSize=Integer.MAX_VALUE,wSum=0;
+        for(;end<arr.length;end++){
+            wSum +=arr[end];
+            while(wSum>=sum){
+                wSum -= arr[start];
+                minSize = Math.min(minSize,(end-start+1));
+                start++;
+            }
+        }
+        return minSize;
+    }
+    /**
+     * Convert all 0 to 5
+     */
+    int convertFive(int num) {
+        // Your code here
+        if(num<0) throw new IllegalArgumentException("Only Positive Number expected");
+        String s = String.valueOf(num);
+        char[] chars = s.toCharArray();
+        for(int i=0;i<chars.length;i++){
+            if(chars[i]=='0')
+                chars[i]='5';
+        }
+        return Integer.parseInt(new String(chars));
+    }
+    /**
+     * Majority element
+     * One Element appeared more than n/2 times
+     */
+    public int majority(int[] arr){
+        int count=0,major=Integer.MIN_VALUE;
+        for(int i=0;i<arr.length;i++){
+            if(count==0){
+                major = arr[i];
+            }
+            if(major==arr[i]){
+                count++;
+            }else{
+                count--;
+            }
+        }
+       return  major;
+    }
+
+    /**
+     * Majority elements
+     * Element appeared more than n/3 times
+     * [1,1,1,3,3,2,2,2]
+     */
+    public List<Integer> majority2(int[] arr){
+        if(arr==null || arr.length==0) return null;
+        List<Integer> res = new ArrayList<>();
+        int maj1=arr[0];int maj2=Integer.MIN_VALUE;
+        int count1=1,count2=0;
+        for(int j=1;j<arr.length;j++){
+            if(maj1==arr[j]){
+                count1++;//3
+            }else if(maj2==arr[j]){
+                count2++;
+            }else if(count1==0){
+                maj1=arr[j];//2
+                count1=1;
+            }else if(count2==0){
+                maj2=arr[j];//3,2
+                count2=1;
+            }else{
+                count1--;//2,1
+                count2--;//0,0
+            }
+        }
+
+        //Check if count is greater than n/3
+        int n=arr.length;
+        count1=0;count2=0;
+        for(int i=0;i<n;i++){
+            if(maj1==arr[i]) count1++;
+            else if(maj2==arr[i]) count2++;
+        }
+        if(count1>n/3) res.add(maj1);
+        if(count2>n/3) res.add(maj2);
+        return res;
+    }
 }

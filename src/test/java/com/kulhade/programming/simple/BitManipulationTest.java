@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.kulhade.programming.simple.BitManipulation.toBinary;
-import static com.kulhade.programming.simple.BitManipulation.toDecimal;
+import static com.kulhade.programming.simple.BitManipulation.*;
 
 public class BitManipulationTest {
 
@@ -43,5 +42,19 @@ public class BitManipulationTest {
         int[] input = {0, 1, 0, 1};
         int actual = toDecimal(input);
         Assertions.assertEquals(5, actual);
+    }
+
+    @Test
+    public void testFindComplement(){
+        Assertions.assertEquals(2,findComplement(5));
+    }
+    @Test
+    public void testFindComplement_0(){
+        Assertions.assertEquals(0,findComplement(1));
+    }
+
+    @Test
+    public void testFindComplement_1(){
+        Assertions.assertEquals(1,findComplement(6));
     }
 }

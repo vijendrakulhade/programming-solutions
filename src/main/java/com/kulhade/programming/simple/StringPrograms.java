@@ -504,4 +504,27 @@ public class StringPrograms {
         }
         return true;
     }
+
+    public boolean checkIfCanBreak(String s1,String s2){
+        if(s1==null || s1.length()== 0) return true;
+        if(s2==null || s2.length()== 0) return false;
+        char[] a_chars = s1.toCharArray();
+        char[] b_chars = s2.toCharArray();
+        Arrays.sort(a_chars);
+        Arrays.sort(b_chars);
+        boolean flag = true;
+        for(int i=0;i<a_chars.length;i++){
+            if(a_chars[i]<b_chars[i]){
+                flag = false;
+                break;
+            }
+        }
+        if(flag) return flag;
+        for(int i=0;i<b_chars.length;i++){
+            if(a_chars[i]>b_chars[i]){
+                return false;
+            }
+        }
+        return true;
+    }
 }

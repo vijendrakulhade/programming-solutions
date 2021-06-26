@@ -4,7 +4,7 @@ import java.util.*;
 
 public class BinaryTree<T extends Comparable<T>> {
     private BTNode<T> root;
-    private class BTNode<T>{
+    public static class BTNode<T>{
         private T data;
         private BTNode<T> left;
         private BTNode<T> right;
@@ -145,6 +145,50 @@ public class BinaryTree<T extends Comparable<T>> {
         }
 
     }
+    public List<T> levelOrderTraversal(){
+        Queue<BTNode<T>> q = new LinkedList<>();
+        List<T> res = new ArrayList();
+        q.offer(root);
+        q.offer(null);
+        while(!q.isEmpty()){
+            BTNode<T> tmp = q.poll();
+            if(tmp!=null){
+                res.add(tmp.data);
+                if(tmp.left!=null) q.offer(tmp.left);
+                if(tmp.right!=null) q.offer(tmp.right);
+            }else{
+                if(!q.isEmpty()) q.offer(null);
+            }
+        }
+        return res;
+    }
+
+    public boolean isCousine(BTNode<T> root,T a,T b) {
+        if (root == null) return false;
+        Queue<BTNode<T>> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            BTNode n = q.poll();
+            if (n != null) {
+                if (n.data.equals(a) || n.data.equals(b)) {
+                    BTNode s = q.peek();
+                    if (s.data == null) {
+                        q.poll();
+                        BTNode next = q.poll();
+                        if(next==null) continue;
+                        if (next.data.equals(a) || next.data.equals(b)) return true;
+                    }
+                }
+                if (n.left != null) q.add(n.left);
+                if (n.right != null) q.add(n.right);
+                q.add(new BTNode<>(null)); //Parent separator
+            } else {
+                if (!q.isEmpty()) q.add(null);
+            }
+        }
+        return false;
+    }
+
 
 
 }

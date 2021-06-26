@@ -60,5 +60,35 @@ public class BitManipulation {
         return decimal_number;
     }
 
+    /**
+     * Find complement of a num
+     * @param num
+     * Time Limit Exceed
+     * @return
+     */
+    public static int findComplement(int num) {
+        if(num==0) return 1;
+        for(int i=num-1;i>0;i--){
+            int d = num&i;
+            if(d==0)
+                return i;
+        }
+        return 0;
+    }
+    public static int findComplementB(int num) {
+        int result = 0;
+        int set =1;
+        while (num!=0){
+            if((num&1)==0){ //check if first bit is 0
+                result |= set; //set the result 1st bit
+            }
+            num = num>>1; //shift number to right
+            set = set<<1; //shift set bit to left
+        }
+        return result;
+    }
+
+
+
 
 }

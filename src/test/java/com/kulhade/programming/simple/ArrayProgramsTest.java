@@ -328,4 +328,91 @@ public class ArrayProgramsTest {
         int[]  a = {5,1,3};
         Assertions.assertEquals(0,arrayPrograms.searchInRotatedSorted(a,5));
     }
+
+    @Test
+    public void testSlidingWindowMax(){
+        int[] input = {8,2,4,7};
+        int[] expected = {8,4,7};
+        Assertions.assertArrayEquals(expected,arrayPrograms.slidingWindowMax(input,2));
+    }
+
+    @Test
+    public void testSlidingWindowMax_1(){
+        int[] input = {1,3,-1,-3,5,3,6,7};
+        int[] expected = {3,3,5,5,6,7};
+        Assertions.assertArrayEquals(expected,arrayPrograms.slidingWindowMax(input,3));
+    }
+
+    @Test
+    public void testConvertFive(){
+        Assertions.assertEquals(4,arrayPrograms.convertFive(4));
+    }
+
+    @Test
+    public void testMajority(){
+        int[] arr = {3,2,3};
+        Assertions.assertEquals(3,arrayPrograms.majority(arr));
+    }
+    @Test
+    public void testMajority_1(){
+        int[] arr = {2,2,1,3,1,1,4,1,1,5,1,1,6};
+        Assertions.assertEquals(1,arrayPrograms.majority(arr));
+    }
+
+    @Test
+    public void testMajority2(){
+        int[] arr = {3,2,3};
+        List<Integer> expected = new ArrayList<>();
+        expected.add(3);
+        List<Integer> actual = arrayPrograms.majority2(arr);
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
+    }
+    @Test
+    public void testMajority2_1(){
+        int[] arr = {1,1,1,3,3,2,2,2};
+        List<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        List<Integer> actual = arrayPrograms.majority2(arr);
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
+    }
+
+    @Test
+    public void testMajority2_2(){
+        int[] arr = {1,2};
+        List<Integer> expected = new ArrayList<>();
+        expected.add(1);
+        expected.add(2);
+        List<Integer> actual = arrayPrograms.majority2(arr);
+        Assertions.assertArrayEquals(expected.toArray(),actual.toArray());
+    }
+
+    @Test
+    public void testSlidingWindowAvg(){
+        int[] arr={1, 3, 2, 6, -1, 4, 1, 8, 2};
+        int k=5;
+        float[] result = arrayPrograms.slidingWindowAvg(arr,k);
+        float[] expected = {2.2F, 2.8F, 2.4F, 3.6F, 2.8F};
+        Assertions.assertArrayEquals(expected,result);
+    }
+
+    @Test
+    public void testSmallestSubArrSizeSum(){
+        int[] arr= {2,1,5,2,3,2};
+        int sum=7;
+        Assertions.assertEquals(2,arrayPrograms.smallestSubArrSizeSum(arr,sum));
+    }
+    @Test
+    public void testSmallestSubArrSizeSum_1(){
+        int[] arr= {2,1,5,2,8};
+        int sum=1;
+        Assertions.assertEquals(1 ,arrayPrograms.smallestSubArrSizeSum(arr,sum));
+    }
+
+    @Test
+    public void testSmallestSubArrSizeSum_2(){
+        int[] arr= {3, 4, 1, 1, 6};
+        int sum=8;
+        Assertions.assertEquals(3 ,arrayPrograms.smallestSubArrSizeSum(arr,sum));
+    }
 }
