@@ -3,7 +3,6 @@ package com.kulhade.datastructure;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 public class MinStackTest {
 

@@ -3,9 +3,6 @@ package com.kulhade.programming.simple;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.utilities.Assert;
-
-import java.util.LinkedHashMap;
 
 public class GraphProgramTest {
 

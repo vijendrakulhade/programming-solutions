@@ -3,7 +3,6 @@ package com.kulhade.oops.programming.patterns;
 import com.kulhade.programming.patterns.TwoPointers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
