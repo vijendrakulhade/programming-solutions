@@ -1,7 +1,6 @@
 package com.kulhade.programming.simple;
 
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * PriorityQueue is the java implementation of heap
@@ -93,6 +92,38 @@ public class PriorityQueuePrograms {
                 heap.add(x);
             }
         }
+
         return heap.size()==1?heap.poll():0;
     }
+
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> m = new HashMap<>();
+        Comparator<Map.Entry<Integer,Integer>> comp = new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                if (o1.getValue() < o2.getValue()){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }
+        };
+        PriorityQueue<Map.Entry<Integer,Integer>> pq = new PriorityQueue<>(comp);
+
+        for(int n:nums){
+            if(m.containsKey(n)){
+                m.put(n,m.get(n)+1);
+            }else{
+                m.put(n,1);
+            }
+        }
+        pq.addAll(m.entrySet());
+        int[] res = new int[k];
+        for(int i=0;i<k;i++){
+            res[i] = pq.poll().getKey();
+        }
+
+        return res;
+    }
+
 }

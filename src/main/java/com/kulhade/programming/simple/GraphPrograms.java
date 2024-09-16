@@ -65,4 +65,28 @@ public class GraphPrograms {
         }
         return sb.toString();
     }
+
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        if(rooms==null){
+            return false;
+        }
+        Map<Integer,List<Integer>> graph = new HashMap<>(rooms.size());
+        Set<Integer> visited = new HashSet<>();
+        for(int i=0;i<rooms.size();i++){
+            graph.put(i,rooms.get(i));
+        }
+        List<Integer> toBeVisited= new LinkedList<>();
+        visited.add(0);
+        toBeVisited.addAll(graph.get(0));
+        while(!toBeVisited.isEmpty()){
+            Integer room = toBeVisited.remove(0);
+            if(visited.contains(room)){
+             continue;
+            }else {
+                visited.add(room);
+            }
+            toBeVisited.addAll(graph.get(room));
+        }
+        return visited.size()==rooms.size();
+    }
 }

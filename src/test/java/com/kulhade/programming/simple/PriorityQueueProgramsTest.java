@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public class PriorityQueueProgramsTest {
 
     private static PriorityQueuePrograms programs = null;
@@ -31,5 +33,12 @@ public class PriorityQueueProgramsTest {
     public void testLastStoneWeight(){
         int[] stones = {2,7,4,1,8,1};
         Assertions.assertEquals(1,programs.lastStoneWeight(stones));
+    }
+
+    @Test
+    public void testTopKElement(){
+        int[] nums = {1,1,1,2,2,3};
+        int[] res = {1,2};
+        Assertions.assertArrayEquals(res,programs.topKFrequent(nums,2));
     }
 }
