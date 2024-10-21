@@ -89,4 +89,31 @@ public class GraphPrograms {
         }
         return visited.size()==rooms.size();
     }
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer,List<Integer>> graph = new HashMap<>();
+        for(int[] edge:prerequisites){
+            if(!graph.containsKey(edge[1])){
+                graph.put(edge[1],new ArrayList<>());
+                graph.put(edge[0],new ArrayList<>());
+            }
+            graph.get(edge[1]).add(edge[0]);
+        }
+        Set<Integer> visited  =  new HashSet<>();
+        Queue<Integer> q= new LinkedList<>();
+        q.add(0);
+        visited.add(0);
+        while(!q.isEmpty()){
+            int node = q.remove();
+            for(int neigh:graph.get(node)){
+                if(visited.contains(neigh)) continue;
+                else{
+                    visited.add(neigh);
+                    q.add(neigh);
+                }
+            }
+
+        }
+        return visited.size()==numCourses;
+    }
 }

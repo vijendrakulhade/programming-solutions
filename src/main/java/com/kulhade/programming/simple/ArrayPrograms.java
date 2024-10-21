@@ -833,4 +833,24 @@ public class ArrayPrograms {
         if(count2>n/3) res.add(maj2);
         return res;
     }
+
+
+    public int carFleet(int target, int[] position, int[] speed) {
+        double[][] car = new double[position.length][2];
+        for(int i=0;i<position.length;i++){
+            car[i][0] = position[i]*1d;
+            car[i][1] = (target-position[i])*1d/speed[i];
+        }
+        Arrays.sort(car,(a,b)->(Double.compare(a[0],b[0])));
+        double tt = car[car.length-1][1];
+        int res = 1;
+        for(int i=car.length-2;i>=0;i--){
+            if(car[i][1]>tt){
+                res+=1;
+                tt = car[i][1];
+            }
+        }
+        return res;
+    }
+
 }

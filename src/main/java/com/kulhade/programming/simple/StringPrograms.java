@@ -9,6 +9,37 @@ import java.util.*;
  */
 public class StringPrograms {
 
+    String[] codes = {".;","abc","def","ghi","jkl","mno","pqrs","tu","vwx","yz"};
+    public List<String> getKeyPadCombination(String number){
+        if(number.isEmpty()){
+            return Arrays.asList(number);
+        }
+        //573
+        char ch = number.charAt(0);// 5
+        List<String> rres = getKeyPadCombination(number.substring(1));//73
+        List<String> ans = new ArrayList<>();
+        String codesStr = codes[ch-'0'];
+        for(char l: codesStr.toCharArray()){
+            for(String rr:rres){
+                ans.add(l+rr);
+            }
+        }
+        return ans;
+    }
+
+    public List<String> getSubsequence(String s){
+        if(s.isEmpty()){
+            return Arrays.asList(s);
+        }
+        char ch = s.charAt(0);
+        List<String> res = getSubsequence(s.substring(1));
+        List<String> ans = new ArrayList<>();
+        for(String rs:res){
+            ans.add(""+rs);
+            ans.add(ch+rs);
+        }
+        return ans;
+    }
     public int wordLadderCount(String start,String end,Set<String> dict){
         if(dict.size()==0) return 0;
         dict.add(end);

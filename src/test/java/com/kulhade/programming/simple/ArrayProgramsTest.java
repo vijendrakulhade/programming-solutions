@@ -415,4 +415,12 @@ public class ArrayProgramsTest {
         int sum=8;
         Assertions.assertEquals(3 ,arrayPrograms.smallestSubArrSizeSum(arr,sum));
     }
+
+    @Test
+    public void testCarFleet(){
+        int[] pos = {6,8};
+        int target = 10;
+        int[] speed = {3,2};
+        Assertions.assertEquals(2,arrayPrograms.carFleet(target,pos,speed));
+    }
 }

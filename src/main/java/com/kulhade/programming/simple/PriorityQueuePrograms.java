@@ -126,4 +126,56 @@ public class PriorityQueuePrograms {
         return res;
     }
 
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(k);
+//        {3,2,1,5,6,4};
+        for(int n:nums){
+            if(pq.size()<k){
+                pq.add(n);
+            }
+            if(!pq.isEmpty() && pq.size()==k && (int)pq.peek()<n){
+                System.out.println(pq.poll()); //3
+                pq.add(n);
+            }
+             //[3,2,1
+        }
+        System.out.println(pq);
+        return pq.peek();
+
+    }
+
+    public long totalCost(int[] costs, int k, int candidates) {
+        PriorityQueue<Integer> head = new PriorityQueue<>();
+        PriorityQueue<Integer> tail = new PriorityQueue<>();
+        int i=0;
+        int j=costs.length-1;
+        while(i<candidates){
+            head.add(costs[i]);
+            i+=1;
+        }
+        while(j>=costs.length-candidates){
+            tail.add(costs[j]);
+            j-=1;
+        }
+        int sum=0;
+        while(k>0){
+            if(tail.isEmpty() || !head.isEmpty() && head.peek()<= tail.peek()){
+                sum+=head.remove();
+                if(i<=j){
+                    head.add(costs[i]);
+                    i+=1;
+                }
+            }else{
+                sum+=tail.remove();
+                if(i<=j){
+                    tail.add(costs[j]);
+                    j-=1;
+                }
+
+            }
+            k-=1;
+        }
+        return sum;
+    }
+
 }

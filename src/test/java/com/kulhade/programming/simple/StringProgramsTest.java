@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by vn05f93 on 3/11/18.
@@ -219,6 +216,33 @@ public class StringProgramsTest {
         String s = "geeksforgeeks";
         String p = "egeks";
         Assertions.assertTrue(stringPrograms.isPalindromicPattern(s,p)) ;
+    }
+
+    @Test
+    public void testGetSubsequence(){
+        String s = "abc";
+        List<String> actual = stringPrograms.getSubsequence(s);
+        for(String sub:actual){
+            System.out.print(sub+" ");
+
+        }
+        Assertions.assertEquals(8,actual.size());
+    }
+
+    @Test
+    public void testGetKeyPadStr(){
+        String num = "678";
+        List<String> actual = stringPrograms.getKeyPadCombination(num);
+        for(String s:actual){
+            System.out.print(s+" ");
+        }
+        Assertions.assertEquals(24,actual.size());
+    }
+
+    @Test
+    public void testArray(){
+        int[] nums = {1,2,3,4};
+        System.out.println(Arrays.toString(Arrays.copyOfRange(nums,1,nums.length)));
     }
 
 }
